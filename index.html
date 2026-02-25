@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ddaiki | 文化財・地図・データ研究</title>
-  <meta name="description" content="日本の瓦刻印データベース、タバコ定価記録、地図アプリなど。文化財と데이터を探求しています。">
+  <title>Daiki Hasegawa | 瓦師・データ・地図</title>
+  <meta name="description" content="京都の瓦師、Daiki Hasegawaのポータルサイト。瓦刻印データベース、シーシャボウル、地図アプリなど。">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -22,16 +22,8 @@
       text-align: center;
     }
 
-    header h1 {
-      font-size: 2rem;
-      letter-spacing: 0.1em;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1rem;
-      opacity: 0.7;
-    }
+    header h1 { font-size: 2rem; letter-spacing: 0.1em; margin-bottom: 10px; }
+    header p { font-size: 1rem; opacity: 0.7; }
 
     nav {
       background: #444;
@@ -46,7 +38,6 @@
       color: #fafaf8;
       text-decoration: none;
       font-size: 0.95rem;
-      letter-spacing: 0.05em;
     }
 
     nav a:hover { text-decoration: underline; }
@@ -57,16 +48,13 @@
       padding: 0 20px;
     }
 
-    .section {
-      margin-bottom: 60px;
-    }
+    .section { margin-bottom: 60px; }
 
     .section h2 {
       font-size: 1.3rem;
       border-bottom: 2px solid #2c2c2c;
       padding-bottom: 8px;
       margin-bottom: 20px;
-      letter-spacing: 0.05em;
     }
 
     .card-grid {
@@ -86,10 +74,7 @@
       display: block;
     }
 
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
     .card .emoji { font-size: 2rem; margin-bottom: 10px; }
     .card h3 { font-size: 1.05rem; margin-bottom: 8px; }
     .card p { font-size: 0.9rem; color: #666; }
@@ -101,11 +86,19 @@
       padding: 30px;
     }
 
-    .instagram-link {
+    .about p { margin-bottom: 16px; }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-top: 16px;
       padding: 10px 20px;
       background: #2c2c2c;
       color: #fff;
@@ -114,7 +107,9 @@
       font-size: 0.95rem;
     }
 
-    .instagram-link:hover { background: #444; }
+    .btn:hover { background: #444; }
+    .btn.instagram { background: #833ab4; }
+    .btn.instagram:hover { background: #6a2d96; }
 
     footer {
       text-align: center;
@@ -128,14 +123,14 @@
 <body>
 
 <header>
-  <h1>Ddaiki</h1>
-  <p>文化財・地図・データを探求する</p>
+  <h1>Daiki Hasegawa</h1>
+  <p>瓦師 / デザイナー / データ研究</p>
 </header>
 
 <nav>
   <a href="#projects">プロジェクト</a>
-  <a href="#about">このサイトについて</a>
-  <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+  <a href="#about">プロフィール</a>
+  <a href="https://www.instagram.com/ddaiki1006" target="_blank">Instagram</a>
 </nav>
 
 <main>
@@ -162,23 +157,35 @@
         <p>国土地理院データを活用した地図アプリケーション。</p>
       </a>
 
+      <a class="card" href="https://www.aslaj.com/view/item/000000002058" target="_blank">
+        <div class="emoji">🏺</div>
+        <h3>瓦製シーシャボウル</h3>
+        <p>京都の瓦職人が手がけたシーシャ用のボウル。伝統素材を現代のカルチャーへ。</p>
+      </a>
+
     </div>
   </section>
 
   <section class="section" id="about">
-    <h2>このサイトについて</h2>
+    <h2>プロフィール</h2>
     <div class="about">
-      <p>日本の文化財や歴史的記録に関心を持ち、データとして整理・公開することを目的として活動しています。調査内容や新しいデータはInstagramでも発信しています。</p>
-      <a class="instagram-link" href="https://www.instagram.com/" target="_blank">
-        📷 Instagramを見る
-      </a>
+      <p>京都を拠点に活動する瓦師。瓦の施工・修理を本業としながら、文化財に残された瓦の刻印を記録するデータベースの構築や、伝統素材を活かした新しいプロダクトのデザインにも取り組んでいます。</p>
+      <p>瓦製のシーシャボウルや、国土地理院データを使った地図アプリなど、畑違いに見えて「素材と場所への探求」という一本の軸でつながっています。</p>
+      <div class="links">
+        <a class="btn instagram" href="https://www.instagram.com/ddaiki1006" target="_blank">
+          📷 Instagram @ddaiki1006
+        </a>
+        <a class="btn" href="https://www.aslaj.com/view/item/000000002058" target="_blank">
+          🏺 シーシャボウルを見る
+        </a>
+      </div>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <p>© 2025 Ddaiki</p>
+  <p>© 2025 Daiki Hasegawa</p>
 </footer>
 
 </body>
