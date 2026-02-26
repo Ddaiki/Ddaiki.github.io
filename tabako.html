@@ -107,7 +107,6 @@
 
     footer { text-align: center; padding: 40px; font-size: 0.85rem; color: #999; border-top: 1px solid #ddd; }
   </style>
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LWYHBZDC4L"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -187,12 +186,27 @@
       document.getElementById('info').textContent = '';
     });
 
+  // 日付のフォーマット変換関数を追加
+  function formatDate(val) {
+    if (!val) return '—';
+    // Date(2020,2,4) 形式を変換
+    const m = String(val).match(/Date\((\d+),(\d+),(\d+)\)/);
+    if (m) {
+      const y = m[1];
+      const mo = String(parseInt(m[2]) + 1).padStart(2, '0');
+      const d = String(m[3]).padStart(2, '0');
+      return `${y}/${mo}/${d}`;
+    }
+    return val;
+  }
+
   function buildHistory(row) {
     // 列I(8)以降が過去定価・日付のペア
     let html = '';
     for (let i = 8; i < row.length - 1; i += 2) {
       if (row[i]) {
-        html += `<span class="price-old">${row[i+1] ? row[i+1] + '：' : ''}${row[i]}円</span><br>`;
+        // 過去の定価にもカンマ区切りと日付変換を適用
+        html += `<span class="price-old">${row[i+1] ? formatDate(row[i+1]) + '：' : ''}${Number(row[i]).toLocaleString('ja-JP')}円</span><br>`;
       }
     }
     return html || '—';
@@ -215,8 +229,8 @@
           <td>${c[1]||''}</td>
           <td>${c[2]||''}</td>
           <td>${c[3]||''}</td>
-          <td class="price-current">${c[4] ? c[4]+'円' : '—'}</td>
-          <td>${c[5]||'—'}</td>
+          <td class="price-current">${c[4] ? Number(c[4]).toLocaleString('ja-JP')+'円' : '—'}</td>
+          <td>${formatDate(c[5])}</td>
           <td>${ninkaBadge}</td>
           <td>${haibanBadge}</td>
           <td>${buildHistory(c)}</td>
