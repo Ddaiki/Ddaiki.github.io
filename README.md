@@ -1,3 +1,0 @@
-# Ddaiki.github.io
-
-よくわからんけどテスト
