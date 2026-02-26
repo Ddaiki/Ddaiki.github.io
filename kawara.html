@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>瓦刻印・箆書き一覧 | Daiki Hasegawa</title>
+  <meta name="description" content="文化財修理報告書から収集した日本の瓦刻印・箆書きのデータベース。瓦師名・建造物・年号などで検索できます。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: #fafaf8; color: #2c2c2c; }
+
+    header { background: #2c2c2c; color: #fff; padding: 40px 20px; text-align: center; }
+    header h1 { font-size: 1.5rem; margin-bottom: 8px; }
+    header p { font-size: 0.9rem; opacity: 0.7; }
+    header a { color: #ccc; font-size: 0.85rem; text-decoration: none; }
+    header a:hover { text-decoration: underline; }
+
+    .search-bar {
+      max-width: 1000px;
+      margin: 30px auto 20px;
+      padding: 0 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+
+    .search-bar button {
+      padding: 10px 20px;
+      background: #2c2c2c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .info {
+      max-width: 1000px;
+      margin: 0 auto 10px;
+      padding: 0 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .table-wrap {
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: #2c2c2c;
+      color: #fff;
+      padding: 10px 12px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    tr:hover td { background: #f5f5f3; }
+
+    .loading { text-align: center; padding: 60px; color: #999; }
+    .no-result { text-align: center; padding: 40px; color: #999; }
+
+    footer { text-align: center; padding: 40px; font-size: 0.85rem; color: #999; border-top: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+
+<header>
+  <p><a href="/">← トップに戻る</a></p>
+  <h1>🧱 瓦刻印・箆書き一覧</h1>
+  <p>文化財修理報告書から収集したデータベース</p>
+</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="瓦師名・建造物・年号などで検索...">
+  <button onclick="filterTable()">検索</button>
+  <button onclick="clearSearch()" style="background:#888;">クリア</button>
+</div>
+
+<div class="info" id="info">読み込み中...</div>
+
+<div class="table-wrap">
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>瓦師所在</th>
+        <th>現区画</th>
+        <th>役職</th>
+        <th>瓦師名</th>
+        <th>その他銘記</th>
+        <th>銘記年号</th>
+        <th>西暦</th>
+        <th>建造物</th>
+        <th>部位</th>
+        <th>建造物所在</th>
+        <th>報告書名</th>
+        <th>銘記場所</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="13" class="loading">データを読み込み中...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <p>データ出典：各文化財修理工事報告書 / © 2025 Daiki Hasegawa</p>
+</footer>
+
+<script>
+  const SHEET_ID = '1i0h0_ysrQYeFNSkaGsp08rwd3laS8ULqRbTXQf-7Vyo';
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+
+  let allRows = [];
+
+  fetch(url)
+    .then(r => r.text())
+    .then(text => {
+      const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+      const rows = json.table.rows;
+      // 1行目はヘッダーなのでスキップ（行2から）
+      allRows = rows.slice(1).map(row => row.c.map(cell => cell ? (cell.v || '') : ''));
+      renderTable(allRows);
+      document.getElementById('info').textContent = `全 ${allRows.length} 件`;
+    })
+    .catch(() => {
+      document.getElementById('tableBody').innerHTML = '<tr><td colspan="13" class="no-result">データの読み込みに失敗しました。スプレッドシートの公開設定を確認してください。</td></tr>';
+      document.getElementById('info').textContent = '';
+    });
+
+  function renderTable(rows) {
+    const tbody = document.getElementById('tableBody');
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="13" class="no-result">該当するデータがありません</td></tr>';
+      return;
+    }
+    // 列の対応: A=0,B=1,C=3,D=4,E=5,F=6,G=7,H=8,J=9,L=11,M=12,N=13,P=14,Q=15
+    tbody.innerHTML = rows.map(c => `
+      <tr>
+        <td>${c[0]||''}</td>
+        <td>${c[2]||''}</td>
+        <td>${c[3]||''}</td>
+        <td>${c[4]||''}</td>
+        <td>${c[6]||''}</td>
+        <td>${c[7]||''}</td>
+        <td>${c[8]||''}</td>
+        <td>${(c[9]||'')} ${(c[10]||'')}</td>
+        <td>${c[13]||''}</td>
+        <td>${c[12]||''}</td>
+        <td>${c[11]||''}</td>
+        <td>${c[14]||''}</td>
+        <td>${c[16]||''}</td>
+      </tr>
+    `).join('');
+    document.getElementById('info').textContent = `${rows.length} 件表示中`;
+  }
+
+  function filterTable() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    if (!q) { renderTable(allRows); return; }
+    const filtered = allRows.filter(row => row.some(cell => String(cell).toLowerCase().includes(q)));
+    renderTable(filtered);
+  }
+
+  function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    renderTable(allRows);
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') filterTable();
+  });
+</script>
+
+</body>
+</html>
