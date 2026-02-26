@@ -98,8 +98,6 @@
       font-size: 0.75rem;
       background: #eee;
     }
-    .badge.henkou { background: #fdecea; color: #c0392b; }
-    .badge.ninka { background: #e8f5e9; color: #2e7d32; }
     .badge.haiban { background: #333; color: #fff; }
 
     .loading { text-align: center; padding: 60px; color: #999; }
@@ -151,13 +149,12 @@
         <th>製造国</th>
         <th>現在の定価</th>
         <th>最新変更日</th>
-        <th>認可種別</th>
         <th>廃盤</th>
         <th>定価の変遷</th>
       </tr>
     </thead>
     <tbody id="tableBody">
-      <tr><td colspan="9" class="loading">データを読み込み中...</td></tr>
+      <tr><td colspan="8" class="loading">データを読み込み中...</td></tr>
     </tbody>
   </table>
 </div>
@@ -182,11 +179,11 @@
       document.getElementById('info').textContent = `全 ${allRows.length} 件`;
     })
     .catch(() => {
-      document.getElementById('tableBody').innerHTML = '<tr><td colspan="9" class="no-result">データの読み込みに失敗しました。</td></tr>';
+      document.getElementById('tableBody').innerHTML = '<tr><td colspan="8" class="no-result">データの読み込みに失敗しました。</td></tr>';
       document.getElementById('info').textContent = '';
     });
 
-  // 日付のフォーマット変換関数を追加
+  // 日付のフォーマット変換関数
   function formatDate(val) {
     if (!val) return '—';
     // Date(2020,2,4) 形式を変換
@@ -201,9 +198,9 @@
   }
 
   function buildHistory(row) {
-    // 列I(8)以降が過去定価・日付のペア
+    // シートのH列(インデックス7)以降が過去定価・日付のペア
     let html = '';
-    for (let i = 8; i < row.length - 1; i += 2) {
+    for (let i = 7; i < row.length - 1; i += 2) {
       if (row[i]) {
         // 過去の定価にもカンマ区切りと日付変換を適用
         html += `<span class="price-old">${row[i+1] ? formatDate(row[i+1]) + '：' : ''}${Number(row[i]).toLocaleString('ja-JP')}円</span><br>`;
@@ -215,23 +212,19 @@
   function renderTable(rows) {
     const tbody = document.getElementById('tableBody');
     if (rows.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="9" class="no-result">該当するデータがありません</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="no-result">該当するデータがありません</td></tr>';
       return;
     }
     tbody.innerHTML = rows.map(c => {
-      const ninkaBadge = c[6] === '変更認可'
-        ? '<span class="badge henkou">変更認可</span>'
-        : '<span class="badge ninka">認可</span>';
-      const haibanBadge = c[7] ? '<span class="badge haiban">廃盤</span>' : '';
+      // G列(インデックス6)が廃盤フラグ
+      const haibanBadge = c[6] ? '<span class="badge haiban">廃盤</span>' : '';
       return `
         <tr>
           <td>${c[0]||''}</td>
           <td>${c[1]||''}</td>
-          <td>${c[2]||''}</td>
-          <td>${c[3]||''}</td>
+          <td>${c[2]||''}</td> <td>${c[3]||''}</td>
           <td class="price-current">${c[4] ? Number(c[4]).toLocaleString('ja-JP')+'円' : '—'}</td>
           <td>${formatDate(c[5])}</td>
-          <td>${ninkaBadge}</td>
           <td>${haibanBadge}</td>
           <td>${buildHistory(c)}</td>
         </tr>
