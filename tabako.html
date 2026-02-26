@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タバコ小売定価データベース | Daiki Hasegawa</title>
+  <meta name="description" content="財務省発表のたばこ小売定価を記録したデータベース。銘柄名・区分・定価の変遷を検索できます。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: #fafaf8; color: #2c2c2c; }
+
+    header { background: #2c2c2c; color: #fff; padding: 40px 20px; text-align: center; }
+    header h1 { font-size: 1.5rem; margin-bottom: 8px; }
+    header p { font-size: 0.9rem; opacity: 0.7; }
+    header a { color: #ccc; font-size: 0.85rem; text-decoration: none; }
+    header a:hover { text-decoration: underline; }
+
+    .search-bar {
+      max-width: 1100px;
+      margin: 30px auto 10px;
+      padding: 0 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+
+    .search-bar select {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .search-bar button {
+      padding: 10px 20px;
+      background: #2c2c2c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .info {
+      max-width: 1100px;
+      margin: 0 auto 10px;
+      padding: 0 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .table-wrap {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: #2c2c2c;
+      color: #fff;
+      padding: 10px 12px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    tr:hover td { background: #f5f5f3; }
+
+    .price-current { font-weight: bold; color: #c0392b; }
+    .price-old { color: #888; font-size: 0.8rem; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      background: #eee;
+    }
+    .badge.henkou { background: #fdecea; color: #c0392b; }
+    .badge.ninka { background: #e8f5e9; color: #2e7d32; }
+    .badge.haiban { background: #333; color: #fff; }
+
+    .loading { text-align: center; padding: 60px; color: #999; }
+    .no-result { text-align: center; padding: 40px; color: #999; }
+
+    footer { text-align: center; padding: 40px; font-size: 0.85rem; color: #999; border-top: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+
+<header>
+  <p><a href="/">← トップに戻る</a></p>
+  <h1>🚬 タバコ小売定価データベース</h1>
+  <p>財務省発表の小売定価を記録・アーカイブ（出典：<a href="https://www.mof.go.jp/policy/tab_salt/topics/kouriteika.html" target="_blank">財務省</a>）</p>
+</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="銘柄名で検索...">
+  <select id="filterKubun">
+    <option value="">すべての区分</option>
+    <option value="加熱式たばこ">加熱式たばこ</option>
+    <option value="紙巻たばこ">紙巻たばこ</option>
+    <option value="葉巻たばこ">葉巻たばこ</option>
+    <option value="パイプたばこ">パイプたばこ</option>
+    <option value="噛みたばこ">噛みたばこ</option>
+    <option value="嗅ぎたばこ">嗅ぎたばこ</option>
+  </select>
+  <button onclick="filterTable()">検索</button>
+  <button onclick="clearSearch()" style="background:#888;">クリア</button>
+</div>
+
+<div class="info" id="info">読み込み中...</div>
+
+<div class="table-wrap">
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>区分</th>
+        <th>銘柄名</th>
+        <th>製品の区分</th>
+        <th>製造国</th>
+        <th>現在の定価</th>
+        <th>最新変更日</th>
+        <th>認可種別</th>
+        <th>廃盤</th>
+        <th>定価の変遷</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="9" class="loading">データを読み込み中...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <p>出典：財務省「製造たばこの小売定価認可」/ © 2025 Daiki Hasegawa</p>
+</footer>
+
+<script>
+  const SHEET_ID = '1-BOwLrGymu6BpQiC9tKrlqhEoEZaqsWP9Kqz9iP_sgI';
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+  let allRows = [];
+
+  fetch(url)
+    .then(r => r.text())
+    .then(text => {
+      const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+      const rows = json.table.rows;
+      allRows = rows.slice(1).map(row => row.c.map(cell => cell ? String(cell.v || '') : ''));
+      renderTable(allRows);
+      document.getElementById('info').textContent = `全 ${allRows.length} 件`;
+    })
+    .catch(() => {
+      document.getElementById('tableBody').innerHTML = '<tr><td colspan="9" class="no-result">データの読み込みに失敗しました。</td></tr>';
+      document.getElementById('info').textContent = '';
+    });
+
+  function buildHistory(row) {
+    // 列I(8)以降が過去定価・日付のペア
+    let html = '';
+    for (let i = 8; i < row.length - 1; i += 2) {
+      if (row[i]) {
+        html += `<span class="price-old">${row[i+1] ? row[i+1] + '：' : ''}${row[i]}円</span><br>`;
+      }
+    }
+    return html || '—';
+  }
+
+  function renderTable(rows) {
+    const tbody = document.getElementById('tableBody');
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="9" class="no-result">該当するデータがありません</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(c => {
+      const ninkaBadge = c[6] === '変更認可'
+        ? '<span class="badge henkou">変更認可</span>'
+        : '<span class="badge ninka">認可</span>';
+      const haibanBadge = c[7] ? '<span class="badge haiban">廃盤</span>' : '';
+      return `
+        <tr>
+          <td>${c[0]||''}</td>
+          <td>${c[1]||''}</td>
+          <td>${c[2]||''}</td>
+          <td>${c[3]||''}</td>
+          <td class="price-current">${c[4] ? c[4]+'円' : '—'}</td>
+          <td>${c[5]||'—'}</td>
+          <td>${ninkaBadge}</td>
+          <td>${haibanBadge}</td>
+          <td>${buildHistory(c)}</td>
+        </tr>
+      `;
+    }).join('');
+    document.getElementById('info').textContent = `${rows.length} 件表示中`;
+  }
+
+  function filterTable() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const kubun = document.getElementById('filterKubun').value;
+    const filtered = allRows.filter(row => {
+      const matchQ = !q || row.some(cell => cell.toLowerCase().includes(q));
+      const matchK = !kubun || row[0].includes(kubun);
+      return matchQ && matchK;
+    });
+    renderTable(filtered);
+  }
+
+  function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterKubun').value = '';
+    renderTable(allRows);
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') filterTable();
+  });
+</script>
+
+</body>
+</html>
