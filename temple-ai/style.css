@@ -1,0 +1,411 @@
+/* ===================================================
+   Design Tokens
+=================================================== */
+:root {
+  --gold:      #c9a227;
+  --gold-lt:   #e8c55a;
+  --gold-dim:  rgba(201, 162, 39, 0.12);
+  --teal:      #00d4d4;
+  --teal-dim:  rgba(0, 212, 212, 0.12);
+  --dark:      #06060e;
+  --dark-2:    #0c0c1a;
+  --serif:     'Noto Serif JP', serif;
+  --sans:      'Noto Sans JP', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===================================================
+   Base
+=================================================== */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--dark);
+  color: #dddde8;
+}
+
+/* ===================================================
+   Hero
+=================================================== */
+#hero-video {
+  filter: brightness(0.55) saturate(0.9);
+}
+
+/* subtle cyber grid over video */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(0, 212, 212, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 212, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero-content {
+  animation: heroIn 1.6s var(--ease-out) forwards;
+  opacity: 0;
+  z-index: 10;
+}
+
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-shadow: 0 4px 48px rgba(0, 0, 0, 0.9);
+}
+
+/* ===================================================
+   Decorative elements
+=================================================== */
+.gold-bar {
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  display: block;
+}
+
+.divider-gold {
+  width: 56px;
+  height: 1px;
+  background: var(--gold);
+  display: block;
+}
+
+/* ===================================================
+   Buttons
+=================================================== */
+.btn-gold {
+  display: inline-block;
+  padding: 14px 40px;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+.btn-gold:hover {
+  background: var(--gold-lt);
+  box-shadow: 0 0 36px rgba(201, 162, 39, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 13px 40px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+.btn-outline:hover {
+  background: var(--gold-dim);
+  box-shadow: 0 0 24px rgba(201, 162, 39, 0.22);
+  transform: translateY(-2px);
+}
+
+/* ===================================================
+   Scroll hint
+=================================================== */
+.scroll-hint { animation: scrollBounce 2.4s ease-in-out infinite; }
+
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid rgba(201, 162, 39, 0.55);
+  border-bottom: 2px solid rgba(201, 162, 39, 0.55);
+  transform: rotate(45deg);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0);    opacity: 0.7; }
+  50%       { transform: translateX(-50%) translateY(10px); opacity: 0.3; }
+}
+
+/* ===================================================
+   Section typography
+=================================================== */
+.label-mono {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: #e4e4f0;
+}
+
+/* ===================================================
+   Feature blocks
+=================================================== */
+.feat-num {
+  font-family: 'Courier New', monospace;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201, 162, 39, 0.22);
+  line-height: 1;
+  display: block;
+  margin-bottom: -4px;
+}
+
+.feat-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.4;
+  color: #e4e4f0;
+  margin-bottom: 20px;
+}
+
+.feat-desc {
+  font-size: 0.95rem;
+  color: #7a7a9a;
+  line-height: 2.1;
+  margin-bottom: 22px;
+}
+
+.feat-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feat-list li {
+  font-size: 0.875rem;
+  color: #6a6a8a;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.7;
+}
+
+.feat-list li::before {
+  content: '▸';
+  color: var(--teal);
+  position: absolute;
+  left: 0;
+}
+
+/* ===================================================
+   Image wrappers
+=================================================== */
+.img-wrap {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  /* teal border glow on hover */
+  box-shadow: 0 0 0 1px rgba(0, 212, 212, 0.15);
+  transition: box-shadow 0.4s ease;
+}
+
+.img-wrap:hover {
+  box-shadow: 0 0 0 1px rgba(0, 212, 212, 0.4),
+              0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.img-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.img-wrap:hover img { transform: scale(1.04); }
+
+/* glow beneath image */
+.img-glow {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(0, 212, 212, 0.18), transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ===================================================
+   Roadmap
+=================================================== */
+.roadmap-bg {
+  background: linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 50%, var(--dark) 100%);
+}
+
+/* ---- timeline layout ---- */
+/* padding-left leaves space for the dot + line.
+   line center = 20px from timeline left edge.
+   dot width = 32px → left in tl-item = (20 - 16) - 56 = -52px  */
+.timeline {
+  position: relative;
+  padding-left: 56px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--gold) 0%, rgba(201, 162, 39, 0.03) 100%);
+}
+
+.tl-item {
+  position: relative;
+  padding-bottom: 44px;
+}
+
+.tl-item:last-child { padding-bottom: 0; }
+
+.tl-dot {
+  position: absolute;
+  left: -52px;
+  top: 3px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.4s ease;
+}
+
+.tl-dot::after {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.28);
+  transition: background 0.4s ease;
+}
+
+.tl-dot.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 22px rgba(201, 162, 39, 0.4);
+}
+
+.tl-dot.active::after { background: var(--gold); }
+
+.tl-phase {
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  color: var(--teal);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.tl-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ccccdc;
+  margin: 6px 0 8px;
+}
+
+.tl-desc {
+  font-size: 0.875rem;
+  color: #5a5a7a;
+  line-height: 2;
+}
+
+/* roadmap items stagger */
+.tl-item:nth-child(2).reveal { transition-delay: 0.08s; }
+.tl-item:nth-child(3).reveal { transition-delay: 0.16s; }
+.tl-item:nth-child(4).reveal { transition-delay: 0.24s; }
+
+/* ===================================================
+   Footer
+=================================================== */
+.footer-name {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ccccdc;
+}
+
+/* ===================================================
+   Scroll-reveal animations (Intersection Observer)
+=================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(44px);
+  transition:
+    opacity  0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Feature rows: image side slides from its direction */
+.feature-row:nth-child(odd)  .img-wrap { transform: translateX(-24px); }
+.feature-row:nth-child(even) .img-wrap { transform: translateX(24px);  }
+
+.feature-row .img-wrap {
+  opacity: 0;
+  transition:
+    opacity   0.9s var(--ease-out),
+    transform 0.9s var(--ease-out),
+    box-shadow 0.4s ease;
+}
+
+.feature-row.is-visible .img-wrap {
+  opacity: 1;
+  transform: translateX(0) !important;
+}
+
+/* text side fades up with slight delay */
+.feature-row > div:last-child {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   0.9s 0.18s var(--ease-out),
+    transform 0.9s 0.18s var(--ease-out);
+}
+
+.feature-row.is-visible > div:last-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================================================
+   Responsive
+=================================================== */
+@media (max-width: 768px) {
+  .feat-num { font-size: 2.8rem; }
+
+  .timeline { padding-left: 48px; }
+  .timeline::before { left: 16px; }
+  /* recalc dot: (16 - 16) - 48 = -48px */
+  .tl-dot { left: -48px; }
+}

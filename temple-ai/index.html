@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寺院×AI×ドローン | 次世代ファシリティマネジメント</title>
+  <meta name="description" content="伝統建築とドローン・AI・スマートフォンを融合した次世代ファシリティマネジメントサービスのコンセプト。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="overflow-x-hidden">
+
+  <!-- ========== HERO ========== -->
+  <section class="hero relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <video class="absolute inset-0 w-full h-full object-cover" id="hero-video" autoplay muted loop playsinline>
+      <source src="gemini_generated_video_EE6E1D52.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-[#06060e]"></div>
+    <div class="hero-grid absolute inset-0"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto hero-content">
+      <div class="gold-bar mx-auto mb-10"></div>
+      <h1 class="hero-title mb-6">
+        1000年の歴史を、<br>テクノロジーで<br>次の1000年へ。
+      </h1>
+      <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-10">
+        ドローン・AI・スマートフォンを融合させた次世代のファシリティマネジメントで、<br class="hidden md:block">
+        寺院・神社・文化財建造物の維持管理に革新をもたらす。
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#features" class="btn-gold">サービスを見る</a>
+        <a href="#roadmap" class="btn-outline">ロードマップ</a>
+      </div>
+      <div class="gold-bar mx-auto mt-10"></div>
+    </div>
+
+    <div class="scroll-hint absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ========== CORE VALUES ========== -->
+  <section id="features" class="py-28 md:py-40">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-24">
+        <span class="label-mono block mb-4">Core Values</span>
+        <h2 class="section-title">三つのコア技術</h2>
+        <div class="divider-gold mx-auto mt-6"></div>
+      </div>
+
+      <!-- Feature 1 : image left -->
+      <div class="feature-row flex flex-col md:flex-row items-center gap-16 mb-32 reveal">
+        <div class="w-full md:w-1/2">
+          <div class="img-wrap">
+            <img src="image.png" alt="AI屋根劣化自動診断">
+            <div class="img-glow"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <span class="feat-num">01</span>
+          <h3 class="feat-title">AIによる<br>屋根劣化自動診断</h3>
+          <p class="feat-desc">ドローンが撮影した高解像度画像をAIがリアルタイム解析。瓦のひび割れ・ズレ・苔の付着を自動検出し、修繕箇所を優先度とともにAR表示。熟練職人の経験知をデジタルに継承する。</p>
+          <ul class="feat-list">
+            <li>瓦割れ・ズレの自動検出（精度95%以上）</li>
+            <li>劣化箇所のAR可視化と位置記録</li>
+            <li>AI概算見積もり・30年先劣化予測</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 2 : image right -->
+      <div class="feature-row flex flex-col md:flex-row-reverse items-center gap-16 mb-32 reveal">
+        <div class="w-full md:w-1/2">
+          <div class="img-wrap">
+            <img src="smartphone_ui.png" alt="スマートフォン日常管理">
+            <div class="img-glow"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <span class="feat-num">02</span>
+          <h3 class="feat-title">スマートフォンで<br>日常管理</h3>
+          <p class="feat-desc">境内の樹木・建物・設備を一元管理するスマホアプリ。日常の巡回チェックをデジタル化し、異常の早期発見と担当者への即時通知を実現。誰でも使えるシンプルなUIで、寺社スタッフの負担を大幅に削減する。</p>
+          <ul class="feat-list">
+            <li>境内マップ連動の設備管理</li>
+            <li>巡回チェックリストのデジタル化</li>
+            <li>異常検知・アラート通知機能</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3 : image left -->
+      <div class="feature-row flex flex-col md:flex-row items-center gap-16 reveal">
+        <div class="w-full md:w-1/2">
+          <div class="img-wrap">
+            <img src="digital_twin.png" alt="デジタルツイン">
+            <div class="img-glow"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <span class="feat-num">03</span>
+          <h3 class="feat-title">境内全域の<br>デジタルツイン化</h3>
+          <p class="feat-desc">ドローンによる3Dスキャンで境内全域を精密にデジタル化。建物・庭・参道・設備の状態をリアルタイムで把握できるデジタルツインを構築し、修繕計画・防災計画・文化財記録に活用する。</p>
+          <ul class="feat-list">
+            <li>境内全域の3Dモデル生成</li>
+            <li>経年変化の記録と比較分析</li>
+            <li>防災・修繕計画への活用</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== ROADMAP ========== -->
+  <section id="roadmap" class="py-28 md:py-40 roadmap-bg">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <div class="text-center mb-20">
+        <span class="label-mono block mb-4">Roadmap</span>
+        <h2 class="section-title">開発ロードマップ</h2>
+        <div class="divider-gold mx-auto mt-6"></div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-dot active"></div>
+          <div class="tl-body">
+            <span class="tl-phase">Phase 1</span>
+            <h4 class="tl-title">コンセプト検証・プロトタイプ</h4>
+            <p class="tl-desc">ドローン撮影フローの確立、AIモデルの初期学習、スマホUIのプロトタイプ開発。京都市内の寺院でのパイロット実施。</p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <span class="tl-phase">Phase 2</span>
+            <h4 class="tl-title">アルファ版リリース</h4>
+            <p class="tl-desc">劣化診断AIの精度向上、境内マップ管理アプリのアルファ版リリース。複数寺院での試験運用開始。</p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <span class="tl-phase">Phase 3</span>
+            <h4 class="tl-title">デジタルツイン基盤構築</h4>
+            <p class="tl-desc">3Dスキャン→デジタルツイン生成パイプラインの構築。文化財データとの連携・経年変化記録システムの整備。</p>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <span class="tl-phase">Phase 4</span>
+            <h4 class="tl-title">正式サービス提供開始</h4>
+            <p class="tl-desc">全機能を統合した次世代ファシリティマネジメントプラットフォームとして正式ローンチ。全国の寺社・文化財施設への展開。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="py-16 border-t border-white/5">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <div class="gold-bar mx-auto mb-8"></div>
+      <p class="footer-name">Daiki Hasegawa</p>
+      <p class="text-gray-600 text-sm mt-1 mb-8">京都 / 瓦屋 / デジタル文化財</p>
+      <a href="https://ddaiki.github.io" class="btn-outline">← プロフィールに戻る</a>
+      <p class="text-gray-800 text-xs mt-12">© 2025 Daiki Hasegawa. Concept Project.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
