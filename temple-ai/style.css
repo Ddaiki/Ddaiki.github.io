@@ -28,8 +28,8 @@ body {
 /* ===================================================
    Hero
 =================================================== */
-#hero-bg {
-  filter: brightness(0.45) saturate(0.85);
+#hero-video {
+  filter: brightness(0.5) saturate(0.85);
 }
 
 /* subtle cyber grid over video */

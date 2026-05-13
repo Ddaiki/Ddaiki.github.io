@@ -22,13 +22,13 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// Subtle parallax on hero image
-const heroBg = document.getElementById('hero-bg');
-if (heroBg) {
+// Subtle parallax on hero video
+const heroVideo = document.getElementById('hero-video');
+if (heroVideo) {
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     if (y < window.innerHeight) {
-      heroBg.style.transform = `translateY(${y * 0.25}px)`;
+      heroVideo.style.transform = `translateY(${y * 0.25}px)`;
     }
   }, { passive: true });
 }
