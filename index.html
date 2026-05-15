@@ -1,226 +1,466 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daiki Hasegawa | 京都・瓦屋・データ分析・Webアプリ・瓦刻印</title>
-  <meta name="description" content="京都を拠点に活動する瓦屋、Daiki Hasegawaのポートフォリオ。伝統的な屋根葺き替え・修理から、瓦素材のシーシャボウル制作、瓦刻印などの文化財データ分析、伝統とテクノロジーを融合させたプロジェクトを紹介。">
-  
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daiki Hasegawa | 京都・瓦屋・データ分析・Webアプリ・瓦刻印</title>
+<meta name="description" content="京都を拠点に活動する瓦屋、Daiki Hasegawaのポートフォリオ。伝統的な屋根葺き替え・修理から、瓦素材のシーシャボウル制作、瓦刻印などの文化財データ分析、伝統とテクノロジーを融合させたプロジェクトを紹介。">
 
-    body {
-      font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
-      background: #fafaf8;
-      color: #2c2c2c;
-      line-height: 1.8;
-    }
+<meta property="og:title" content="Daiki Hasegawa | 京都の瓦屋・データ分析・瓦刻印">
+<meta property="og:description" content="京都を拠点に活動する瓦屋のポートフォリオ。瓦刻印データベースや瓦製シーシャボウルなどのプロジェクト。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ddaiki.github.io">
+<meta name="twitter:card" content="summary_large_image">
 
-    header {
-      background: #2c2c2c;
-      color: #fafaf8;
-      padding: 60px 20px;
-      text-align: center;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
 
-    header h1 { font-size: 2rem; letter-spacing: 0.1em; margin-bottom: 10px; }
-    header p { font-size: 1rem; opacity: 0.7; }
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LWYHBZDC4L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LWYHBZDC4L');
+</script>
 
-    nav {
-      background: #444;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px;
-      flex-wrap: wrap;
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Daiki Hasegawa",
+  "jobTitle": "瓦屋",
+  "url": "https://ddaiki.github.io",
+  "sameAs": [
+    "https://www.instagram.com/ddaiki1006"
+  ]
+}
+</script>
 
-    nav a {
-      color: #fafaf8;
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-
-    nav a:hover { text-decoration: underline; }
-
-    main {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-
-    .section { margin-bottom: 60px; }
-
-    .section h2 {
-      font-size: 1.3rem;
-      border-bottom: 2px solid #2c2c2c;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 24px;
-      text-decoration: none;
-      color: inherit;
-      transition: box-shadow 0.2s;
-      display: block;
-    }
-
-    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-    .card .emoji { font-size: 2rem; margin-bottom: 10px; }
-    .card h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .card p { font-size: 0.9rem; color: #666; }
-
-    .about {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 30px;
-    }
-
-    .about p { margin-bottom: 16px; }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      background: #2c2c2c;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 0.95rem;
-    }
-
-    .btn:hover { background: #444; }
-    .btn.instagram { background: #833ab4; }
-    .btn.instagram:hover { background: #6a2d96; }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      font-size: 0.85rem;
-      color: #999;
-      border-top: 1px solid #ddd;
-    }
-  </style>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LWYHBZDC4L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-LWYHBZDC4L');
-  </script>
-
-  <meta property="og:title" content="Daiki Hasegawa | 京都の瓦屋・データ分析・瓦刻印">
-  <meta property="og:description" content="京都を拠点に活動する瓦屋のポートフォリオ。瓦刻印データベースや瓦製シーシャボウルなどのプロジェクト。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ddaiki.github.io">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Daiki Hasegawa",
-    "jobTitle": "瓦屋",
-    "url": "https://ddaiki.github.io",
-    "sameAs": [
-      "https://www.instagram.com/ddaiki1006"
-    ]
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-2: #f6f8fa;
+    --fg: #1f2328;
+    --mute: #656d76;
+    --rule: #d1d9e0;
+    --rule-soft: #e6e8eb;
+    --accent: #1a7f37;
+    --accent-soft: #dafbe1;
+    --link: #0969da;
+    --warn: #9a6700;
   }
-  </script>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  ::selection { background: var(--accent-soft); color: var(--fg); }
+
+  .ja { font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", system-ui, sans-serif; font-feature-settings: "palt"; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* Repo bar */
+  .repo {
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .repo .path { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); }
+  .repo .path .owner { color: var(--mute); }
+  .repo .path .sep { color: var(--mute); }
+  .repo .path .name { font-weight: 700; color: var(--link); }
+  .repo .branch {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 12px;
+    color: var(--mute);
+    background: var(--bg-2);
+  }
+  .repo .branch::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  .repo .right { display: inline-flex; gap: 18px; }
+  .repo .right a { color: var(--mute); }
+  .repo .right a:hover { color: var(--link); text-decoration: none; }
+
+  /* Filebar */
+  .filebar {
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+    font-size: 12px;
+    color: var(--mute);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .filebar .file { color: var(--fg); }
+  .filebar .commits { margin-left: auto; }
+  .filebar .commits b { color: var(--fg); font-weight: 500; }
+
+  /* Page */
+  main { padding: 32px 0 64px; }
+
+  /* Heading 1 */
+  h1.h1 {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.1;
+    margin: 8px 0 4px;
+    letter-spacing: -0.02em;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .name-ja-row {
+    color: var(--mute);
+    margin: 0 0 24px;
+    font-size: 14px;
+  }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin: 16px 0 28px; }
+  .badge {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    font-size: 11px;
+    height: 22px;
+  }
+  .badge .k { background: #24292f; color: #fff; padding: 0 8px; display: inline-flex; align-items: center; }
+  .badge .v { background: var(--bg-2); color: var(--fg); padding: 0 8px; display: inline-flex; align-items: center; }
+  .badge.green .v { background: var(--accent-soft); color: var(--accent); }
+  .badge.blue .v { background: #ddf4ff; color: var(--link); }
+
+  /* Lede / quote */
+  .lede {
+    border-left: 3px solid var(--rule);
+    padding: 4px 16px;
+    color: var(--mute);
+    margin: 0 0 32px;
+    font-size: 14px;
+  }
+  .lede.ja { line-height: 1.85; }
+
+  /* H2 */
+  h2.h2 {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 22px;
+    margin: 44px 0 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  h2.h2 .hash { color: var(--mute); font-weight: 400; }
+  h2.h2 .sub { font-size: 13px; color: var(--mute); font-weight: 400; }
+
+  /* Project list as task-list */
+  ul.tasks {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule-soft);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .task {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 12px;
+    align-items: start;
+    padding: 16px 18px;
+    background: var(--bg);
+    transition: background .12s;
+  }
+  .task:hover { background: var(--bg-2); }
+  .task .chk {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .task .body { min-width: 0; }
+  .task .title-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .task .t {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--fg);
+  }
+  .task .t .ja { font-family: "Zen Kaku Gothic New", sans-serif; font-feature-settings: "palt"; }
+  .task .kind {
+    font-size: 11px;
+    color: var(--mute);
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    padding: 1px 7px;
+    border-radius: 100px;
+    font-weight: 400;
+  }
+  .task p {
+    margin: 6px 0 0;
+    font-size: 13.5px;
+    color: var(--mute);
+    line-height: 1.7;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-feature-settings: "palt";
+  }
+  .task .meta-row {
+    margin-top: 10px;
+    display: flex; gap: 14px; align-items: center;
+    font-size: 12px;
+    color: var(--mute);
+  }
+  .task .meta-row a {
+    color: var(--link);
+    word-break: break-all;
+  }
+  .task .meta-row .lang { display: inline-flex; align-items: center; gap: 6px; }
+  .task .meta-row .lang::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--lang, var(--link)); }
+  .task .arr { color: var(--mute); align-self: center; transition: transform .15s, color .15s; }
+  .task:hover .arr { transform: translateX(3px); color: var(--link); }
+
+  /* About */
+  .about {
+    margin-top: 18px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .about-head {
+    background: var(--bg-2);
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--mute);
+    border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+  }
+  .about-body { padding: 18px 18px 6px; }
+  dl.kv { display: grid; grid-template-columns: 14ch 1fr; gap: 4px 16px; margin: 0; font-size: 13.5px; }
+  dl.kv dt { color: var(--mute); }
+  dl.kv dt::before { content: "- "; }
+  dl.kv dd { margin: 0; }
+  dl.kv dd.ja { font-family: "Zen Kaku Gothic New", sans-serif; font-feature-settings: "palt"; line-height: 1.9; }
+  .about-links { padding: 14px 18px 18px; border-top: 1px solid var(--rule-soft); display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--bg-2);
+    color: var(--fg);
+    font-size: 13px;
+    transition: all .12s;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--bg); border-color: var(--mute); text-decoration: none; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #176f30; color: #fff; }
+
+  /* Footer */
+  footer {
+    padding: 16px 0 24px;
+    border-top: 1px solid var(--rule-soft);
+    margin-top: 56px;
+    color: var(--mute);
+    font-size: 12px;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  footer .commit { display: inline-flex; align-items: center; gap: 6px; }
+  footer .commit code {
+    background: var(--bg-2);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--rule-soft);
+    color: var(--fg);
+  }
+
+  @media (max-width: 560px) {
+    dl.kv { grid-template-columns: 1fr; gap: 0; }
+    dl.kv dt { margin-top: 8px; }
+    .task .arr { display: none; }
+    .task { grid-template-columns: 24px 1fr; }
+  }
+</style>
 </head>
 <body>
+<div class="wrap">
 
-<header>
-  <h1>Daiki Hasegawa</h1>
-  <p>京都 / 瓦屋 / デザイン / 瓦刻印 / データ研究</p>
-</header>
+  <div class="repo">
+    <span class="path">
+      <span class="owner">ddaiki</span><span class="sep">/</span><a class="name" href="/">ddaiki.github.io</a>
+    </span>
+    <span class="branch">main</span>
+    <span class="right">
+      <a href="#projects">projects</a>
+      <a href="#about">about</a>
+      <a href="https://instagram.com/ddaiki1006" target="_blank" rel="noopener" aria-label="Instagram（新しいタブで開く）">instagram <span aria-hidden="true">↗</span></a>
+    </span>
+  </div>
 
-<nav>
-  <a href="#projects">🚀プロジェクト</a>
-  <a href="#about">👤プロフィール</a>
-  <a href="https://www.instagram.com/ddaiki1006" target="_blank">📸Instagram</a>
-</nav>
+  <div class="filebar">
+    <span class="file">README.md</span>
+    <span class="commits">last commit · <b>introduce 瓦製シーシャボウル</b></span>
+  </div>
 
-<main>
+  <main>
 
-  <section class="section" id="projects">
-    <h2>プロジェクト</h2>
-    <div class="card-grid">
+    <h1 class="h1">Daiki Hasegawa</h1>
+    <p class="name-ja-row ja">長谷川 大喜 — はせがわ・だいき</p>
 
-      <a class="card" href="kawara.html">
-        <div class="emoji">🧱</div>
-        <h3>瓦刻印データベース</h3>
-        <p>文化財修理報告書から収集した、日本の瓦に記された刻印の記録。</p>
-      </a>
-
-      <a class="card" href="https://ddaiki.github.io/tobacco-price-database/">
-        <div class="emoji">🚬</div>
-        <h3>タバコ小売定価データベース</h3>
-        <p>財務省発表のタバコ定価を時系列で記録・検索できるデータベース。</p>
-      </a>
-
-      <a class="card" href="https://ddaiki.github.io/gsi-map-app" target="_blank">
-        <div class="emoji">🗺️</div>
-        <h3>屋根葺き替え工事　見積りWebアプリ</h3>
-        <p>国土地理院データを活用し、住所情報から屋根葺き替え工事の見積もりを計算する。</p>
-      </a>
-
-      <a class="card" href="https://ddaiki.github.io/kenzobutsu-mokuroku" target="_blank">
-        <div class="emoji">🏛️</div>
-        <h3>建造物調査報告書データベース</h3>
-        <p>国立国会図書館に所蔵されている文化財建造物の修理報告書をリスト化。デジタル公開資料を中心に検索しやすく整理したデータベース。</p>
-      </a>
-
-      <a class="card" href="https://www.aslaj.com/view/item/000000002058" target="_blank">
-        <div class="emoji">🏺</div>
-        <h3>瓦製シーシャボウル</h3>
-        <p>京都の瓦職人が手がけたシーシャ用のボウル。伝統素材を現代のカルチャーへ。</p>
-      </a>
-
+    <div class="badges">
+      <span class="badge"><span class="k">based</span><span class="v ja">京都</span></span>
+      <span class="badge"><span class="k">role</span><span class="v ja">瓦屋</span></span>
+      <span class="badge green"><span class="k">focus</span><span class="v ja">瓦刻印 / データ研究</span></span>
+      <span class="badge blue"><span class="k">also</span><span class="v ja">デザイン</span></span>
     </div>
-  </section>
 
-  <section class="section" id="about">
-    <h2>プロフィール</h2>
+    <blockquote class="lede ja">
+      京都市を拠点に活動する瓦屋。屋根の葺き替えなどの施工実務と並行して、文化財に残された瓦の刻印を記録するデータベース構築と、伝統素材を活かしたプロダクトのデザインに取り組んでいます。
+    </blockquote>
+
+    <h2 class="h2" id="projects"><span class="hash">##</span> Projects <span class="sub">— 5 件</span></h2>
+
+    <ul class="tasks">
+
+      <li class="task" style="--lang:#a1685a">
+        <a href="/kawara.html" class="chk" aria-label="瓦刻印データベースを開く" style="text-decoration:none"><span aria-hidden="true">✓</span></a>
+        <div class="body">
+          <div class="title-row">
+            <a class="t" href="/kawara.html"><span class="ja">瓦刻印データベース</span></a>
+            <span class="kind">database</span>
+          </div>
+          <p>文化財修理報告書から収集した、日本の瓦に記された刻印の記録。</p>
+          <div class="meta-row">
+            <span class="lang">database</span>
+            <a href="/kawara.html">/kawara.html</a>
+          </div>
+        </div>
+        <a class="arr" href="/kawara.html" aria-label="瓦刻印データベースを開く" style="text-decoration:none"><span aria-hidden="true">→</span></a>
+      </li>
+
+      <li class="task" style="--lang:#c9b458">
+        <a href="/tobacco-price-database/" class="chk" aria-label="タバコ小売定価データベースを開く" style="text-decoration:none"><span aria-hidden="true">✓</span></a>
+        <div class="body">
+          <div class="title-row">
+            <a class="t" href="/tobacco-price-database/"><span class="ja">タバコ小売定価データベース</span></a>
+            <span class="kind">database</span>
+          </div>
+          <p>財務省発表のタバコ定価を時系列で記録・検索できるデータベース。</p>
+          <div class="meta-row">
+            <span class="lang">timeseries</span>
+            <a href="/tobacco-price-database/">/tobacco-price-database/</a>
+          </div>
+        </div>
+        <a class="arr" href="/tobacco-price-database/" aria-label="タバコ小売定価データベースを開く" style="text-decoration:none"><span aria-hidden="true">→</span></a>
+      </li>
+
+      <li class="task" style="--lang:#3d8b41">
+        <a href="/gsi-map-app" class="chk" aria-label="屋根葺き替え工事見積りWebアプリを開く" style="text-decoration:none"><span aria-hidden="true">✓</span></a>
+        <div class="body">
+          <div class="title-row">
+            <a class="t" href="/gsi-map-app"><span class="ja">屋根葺き替え工事 見積りWebアプリ</span></a>
+            <span class="kind">web-app</span>
+          </div>
+          <p>国土地理院データを活用し、住所情報から屋根葺き替え工事の見積もりを計算する。</p>
+          <div class="meta-row">
+            <span class="lang">web-app</span>
+            <a href="/gsi-map-app">/gsi-map-app</a>
+          </div>
+        </div>
+        <a class="arr" href="/gsi-map-app" aria-label="屋根葺き替え工事見積りWebアプリを開く" style="text-decoration:none"><span aria-hidden="true">→</span></a>
+      </li>
+
+      <li class="task" style="--lang:#6e7681">
+        <a href="/kenzobutsu-mokuroku" class="chk" aria-label="建造物調査報告書データベースを開く" style="text-decoration:none"><span aria-hidden="true">✓</span></a>
+        <div class="body">
+          <div class="title-row">
+            <a class="t" href="/kenzobutsu-mokuroku"><span class="ja">建造物調査報告書データベース</span></a>
+            <span class="kind">database</span>
+          </div>
+          <p>国立国会図書館に所蔵されている文化財建造物の修理報告書をリスト化。</p>
+          <div class="meta-row">
+            <span class="lang">database</span>
+            <a href="/kenzobutsu-mokuroku">/kenzobutsu-mokuroku</a>
+          </div>
+        </div>
+        <a class="arr" href="/kenzobutsu-mokuroku" aria-label="建造物調査報告書データベースを開く" style="text-decoration:none"><span aria-hidden="true">→</span></a>
+      </li>
+
+      <li class="task" style="--lang:#cb6133">
+        <a href="https://www.aslaj.com/view/item/000000002058" target="_blank" rel="noopener" class="chk" aria-label="瓦製シーシャボウルを見る（新しいタブで開く）" style="text-decoration:none"><span aria-hidden="true">✓</span></a>
+        <div class="body">
+          <div class="title-row">
+            <a class="t" href="https://www.aslaj.com/view/item/000000002058" target="_blank" rel="noopener" aria-label="瓦製シーシャボウル（新しいタブで開く）"><span class="ja">瓦製シーシャボウル</span></a>
+            <span class="kind">product</span>
+          </div>
+          <p>京都の瓦職人が手がけたシーシャ用のボウル。伝統素材を現代のカルチャーへ。</p>
+          <div class="meta-row">
+            <span class="lang">product</span>
+            <a href="https://www.aslaj.com/view/item/000000002058" target="_blank" rel="noopener" aria-label="aslaj.comで見る（新しいタブで開く）">aslaj.com <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <a class="arr" href="https://www.aslaj.com/view/item/000000002058" target="_blank" rel="noopener" aria-label="瓦製シーシャボウルを見る（新しいタブで開く）" style="text-decoration:none"><span aria-hidden="true">↗</span></a>
+      </li>
+
+    </ul>
+
+    <h2 class="h2" id="about"><span class="hash">##</span> About</h2>
+
     <div class="about">
-      <p>長谷川 大喜（はせがわ・だいき）</p>
-      <p>京都市を拠点に活動する瓦屋。瓦葺屋根の葺き替えや雨漏り修理などの施工実務を担いながら、文化財に残された瓦の刻印を記録するデータベースの構築や、伝統素材を活かした新しいプロダクトのデザインに取り組んでいる。</p>
-      <div class="links">
-        <a class="btn instagram" href="https://www.instagram.com/ddaiki1006" target="_blank">
-          📸 Instagram @ddaiki1006
+      <div class="about-head">
+        <span>profile.yml</span>
+        <span>2 contacts</span>
+      </div>
+      <div class="about-body">
+        <dl class="kv">
+          <dt>name</dt><dd class="ja">長谷川 大喜</dd>
+          <dt>reading</dt><dd class="ja">はせがわ・だいき</dd>
+          <dt>location</dt><dd class="ja">京都市, 日本</dd>
+          <dt>role</dt><dd class="ja">瓦屋 / 屋根葺き / プロダクトデザイン / データ研究</dd>
+          <dt>about</dt>
+          <dd class="ja">京都市を拠点に活動する瓦屋。瓦葺屋根の葺き替えや雨漏り修理などの施工実務を担いながら、文化財に残された瓦の刻印を記録するデータベースの構築や、伝統素材を活かした新しいプロダクトのデザインに取り組んでいる。</dd>
+        </dl>
+      </div>
+      <div class="about-links">
+        <a class="btn primary" href="https://instagram.com/ddaiki1006" target="_blank" rel="noopener" aria-label="Instagram @ddaiki1006（新しいタブで開く）">
+          Instagram @ddaiki1006 <span aria-hidden="true">↗</span>
         </a>
-        <a class="btn" href="https://www.aslaj.com/view/item/000000002058" target="_blank">
-          🏺 シーシャボウルを見る
+        <a class="btn" href="https://www.aslaj.com/view/item/000000002058" target="_blank" rel="noopener" aria-label="瓦製シーシャボウルを見る（新しいタブで開く）">
+          瓦製シーシャボウル <span aria-hidden="true">↗</span>
         </a>
       </div>
     </div>
-  </section>
 
-</main>
+  </main>
 
-<footer>
-  <p>© 2025 Daiki Hasegawa</p>
-</footer>
+  <footer>
+    <span>© 2025 Daiki Hasegawa</span>
+    <span class="commit">last commit · <code>a7f3c21</code> · 2 days ago</span>
+  </footer>
 
+</div>
 </body>
 </html>
