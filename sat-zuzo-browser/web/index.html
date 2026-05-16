@@ -3,20 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SAT図像ブラウザ（叩き台）</title>
+  <title>SAT図像ブラウザ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
-  <header class="topbar">
-    <button id="menu-toggle" class="icon-btn" aria-label="メニュー">☰</button>
-    <h1 class="brand">SAT図像ブラウザ</h1>
-    <form id="search-form" class="search">
-      <input id="search-input" type="search" placeholder="キーワードで検索" autocomplete="off">
-      <button type="submit">検索</button>
-    </form>
+  <header class="site-header">
+    <div class="topbar">
+      <button id="menu-toggle" class="icon-btn" aria-label="メニュー">☰</button>
+      <h1 class="brand">SAT図像ブラウザ</h1>
+      <form id="search-form" class="search">
+        <input id="search-input" type="search" placeholder="キーワードで検索" autocomplete="off">
+        <button type="submit">検索</button>
+      </form>
+    </div>
+    <div class="infobar">
+      <span class="infobar-source">
+        出典: <a href="https://dzkimgs.l.u-tokyo.ac.jp/SATi/images.php" target="_blank" rel="noopener">SAT大正蔵図像DB</a>（東京大学 / CC BY-SA 4.0）
+      </span>
+      <span class="infobar-links">
+        <a href="https://ddaiki.github.io" target="_blank" rel="noopener">ddaiki.github.io</a>
+        <a href="https://x.com/Ddaiki" target="_blank" rel="noopener">𝕏 @Ddaiki</a>
+      </span>
+    </div>
   </header>
 
   <div class="layout">
@@ -25,10 +36,6 @@
         <h2>絞り込み</h2>
         <ul id="facet-deity" class="facet-list"></ul>
       </section>
-      <p class="credit">
-        画像出典: <a href="https://dzkimgs.l.u-tokyo.ac.jp/SATi/images.php" target="_blank" rel="noopener">SAT大正蔵図像DB</a>（東京大学 / CC BY-SA 4.0）<br>
-        本フロントは<strong>非公式の叩き台</strong>です。
-      </p>
     </aside>
 
     <main class="main">
@@ -55,6 +62,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

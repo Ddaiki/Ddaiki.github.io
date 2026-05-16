@@ -34,12 +34,12 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .icon-btn { font-size: 20px; padding: 4px 10px; line-height: 1; }
 
 /* ── Header ── */
+.site-header { position: sticky; top: 0; z-index: 10; }
 .topbar {
   display: flex; align-items: center; gap: 12px;
   padding: 10px 20px;
   background: #fff;
   border-bottom: 1px solid var(--line);
-  position: sticky; top: 0; z-index: 10;
 }
 .brand {
   font-family: "Shippori Mincho", serif;
@@ -56,6 +56,18 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
   border-radius: var(--radius);
   min-width: 200px;
 }
+
+/* Infobar: 濃紺地で白テキスト → 白背景ヘッダーと明確に区別 */
+.infobar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 5px 20px; gap: 12px;
+  background: var(--indigo);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+}
+.infobar a { color: #a8c4e8; text-decoration: none; }
+.infobar a:hover { color: #fff; text-decoration: underline; }
+.infobar-links { display: flex; gap: 16px; white-space: nowrap; flex-shrink: 0; }
 
 /* ── Layout ── */
 .layout {
@@ -100,7 +112,6 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .facet-list .count {
   font-size: 11px; color: var(--indigo); margin-left: 4px;
 }
-.credit { font-size: 11px; color: var(--indigo); margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); }
 
 /* ── Main ── */
 .main { padding: 16px; }
@@ -228,9 +239,13 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
   .search input { min-width: 0; flex: 1; }
   .search button { white-space: nowrap; }
 
+  .infobar { padding: 4px 12px; flex-wrap: wrap; gap: 2px 12px; font-size: 11px; }
+  .infobar-source { display: none; } /* 出典はスペース節約のため非表示、リンクのみ残す */
+  .infobar-links { gap: 12px; }
+
   .layout { grid-template-columns: 1fr; }
   .sidebar {
-    position: fixed; inset: 0 0 0 0; top: 0;
+    position: fixed; inset: 0; top: 0;
     transform: translateX(-100%);
     transition: transform 0.2s ease;
     z-index: 20;
