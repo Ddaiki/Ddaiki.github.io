@@ -240,9 +240,8 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
   .search input { min-width: 0; flex: 1; }
   .search button { white-space: nowrap; }
 
-  .infobar { padding: 4px 12px; flex-wrap: wrap; gap: 2px 12px; font-size: 11px; }
-  .infobar-source { display: none; } /* 出典はスペース節約のため非表示、リンクのみ残す */
-  .infobar-links { gap: 12px; }
+  .infobar { padding: 4px 12px; flex-wrap: wrap; gap: 2px 8px; font-size: 11px; }
+  .infobar-links { gap: 10px; }
 
   .layout { grid-template-columns: 1fr; }
   .sidebar {
