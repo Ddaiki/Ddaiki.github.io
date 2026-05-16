@@ -22,7 +22,15 @@ sat-zuzo-browser/
     └── app.js           バニラ JS、OpenSeadragon でビューワ
 ```
 
-## セットアップ
+## 公開デモ（静的版）
+
+GitHub Pages で動く静的版を `web/` に同梱しています。`main` にマージされていれば下記 URL で閲覧可能:
+
+<https://ddaiki.github.io/sat-zuzo-browser/web/>
+
+スマホ（iPhone Safari など）からも動きます。サムネイル一覧 → 尊格ファセット絞り込み → モーダルで詳細表示までは動作しますが、サンプル IIIF URL は本家未調査のため OpenSeadragon のタイル読込は失敗します（モーダル内に注意書きを表示）。
+
+## セットアップ（Flask 版・本格運用想定）
 
 ```bash
 cd sat-zuzo-browser

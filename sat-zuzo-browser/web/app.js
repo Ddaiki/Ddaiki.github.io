@@ -1,11 +1,14 @@
-// SAT図像ブラウザ叩き台のフロント。フレームワーク無し、状態は単純なオブジェクト。
+// SAT図像ブラウザ叩き台のフロント。静的版（GitHub Pages 配信用）。
+// data/items.json を読んでクライアント側で絞り込み/ページング。
 
 const state = {
   q: "",
   category: "",
   limit: 60,
   offset: 0,
-  total: 0,
+  all: [],
+  filtered: [],
+  facets: { 尊格: [] },
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -45,32 +48,43 @@ function showStatus(message) {
   els.status.textContent = message;
 }
 
-function buildSearchURL() {
-  const params = new URLSearchParams();
-  if (state.q) params.set("q", state.q);
-  if (state.category) params.set("category", state.category);
-  params.set("limit", state.limit);
-  params.set("offset", state.offset);
-  return `/api/search?${params}`;
+async function loadData() {
+  showStatus("読み込み中…");
+  try {
+    const data = await fetchJSON("data/items.json");
+    state.all = data.items || [];
+    state.facets = data.facets || { 尊格: [] };
+    renderFacets();
+    applyFilters();
+    showStatus(state.all.length ? null : "items.json が空です。");
+  } catch (e) {
+    showStatus(`データ読み込み失敗: ${e.message}`);
+  }
 }
 
-async function loadFacets() {
-  try {
-    const data = await fetchJSON("/api/facets");
-    const deity = data.tags["尊格"] || [];
-    const counts = new Map(
-      (data.deity_categories || []).map((c) => [c.value, c.n])
-    );
-    els.facetDeity.innerHTML = "";
-    const allBtn = createFacetButton("すべて", "", counts.size ? null : 0);
-    els.facetDeity.appendChild(allBtn);
-    for (const value of deity) {
-      els.facetDeity.appendChild(createFacetButton(value, value, counts.get(value)));
-    }
-    updateFacetActive();
-  } catch (e) {
-    showStatus(`ファセット取得失敗: ${e.message}`);
+function renderFacets() {
+  const counts = countByCategory(state.all);
+  els.facetDeity.innerHTML = "";
+  els.facetDeity.appendChild(createFacetButton("すべて", "", state.all.length));
+  for (const value of state.facets["尊格"] || []) {
+    els.facetDeity.appendChild(createFacetButton(value, value, counts.get(value) || 0));
   }
+  // 「尊格」リストに無いカテゴリ（曼荼羅など）も追加
+  for (const [value, n] of counts) {
+    if (!(state.facets["尊格"] || []).includes(value)) {
+      els.facetDeity.appendChild(createFacetButton(value, value, n));
+    }
+  }
+  updateFacetActive();
+}
+
+function countByCategory(items) {
+  const m = new Map();
+  for (const it of items) {
+    if (!it.deity_category) continue;
+    m.set(it.deity_category, (m.get(it.deity_category) || 0) + 1);
+  }
+  return m;
 }
 
 function createFacetButton(label, value, count) {
@@ -89,7 +103,8 @@ function createFacetButton(label, value, count) {
     state.category = value;
     state.offset = 0;
     updateFacetActive();
-    loadResults();
+    applyFilters();
+    els.sidebar.classList.remove("open");
   });
   li.appendChild(btn);
   return li;
@@ -101,26 +116,29 @@ function updateFacetActive() {
   });
 }
 
-async function loadResults() {
-  showStatus("読み込み中…");
-  try {
-    const data = await fetchJSON(buildSearchURL());
-    state.total = data.total;
-    renderResults(data.items);
-    updatePager();
-    showStatus(
-      data.items.length
-        ? null
-        : "該当する画像がありません。fetch_manifests.py --seed を実行しましたか？"
-    );
-  } catch (e) {
-    showStatus(`検索失敗: ${e.message}`);
+function applyFilters() {
+  const q = state.q.toLowerCase();
+  state.filtered = state.all.filter((it) => {
+    if (state.category && it.deity_category !== state.category) return false;
+    if (q) {
+      const hay = `${it.title || ""} ${it.deity_category || ""}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  renderResults();
+  updatePager();
+  if (state.filtered.length === 0) {
+    showStatus("該当する画像がありません。");
+  } else {
+    showStatus(null);
   }
 }
 
-function renderResults(items) {
+function renderResults() {
+  const slice = state.filtered.slice(state.offset, state.offset + state.limit);
   els.results.innerHTML = "";
-  for (const item of items) {
+  for (const item of slice) {
     const li = document.createElement("li");
     li.className = "card";
     li.tabIndex = 0;
@@ -131,36 +149,33 @@ function renderResults(items) {
         <p class="meta-line">巻${item.volume} / 頁${item.page}</p>
       </div>
     `;
-    li.addEventListener("click", () => openViewer(item.id));
+    li.addEventListener("click", () => openViewer(item));
     li.addEventListener("keydown", (ev) => {
-      if (ev.key === "Enter") openViewer(item.id);
+      if (ev.key === "Enter") openViewer(item);
     });
     els.results.appendChild(li);
   }
 }
 
 function updatePager() {
+  const total = state.filtered.length;
   const page = Math.floor(state.offset / state.limit) + 1;
-  const pages = Math.max(1, Math.ceil(state.total / state.limit));
-  els.pageInfo.textContent = `${page} / ${pages}（全${state.total}件）`;
+  const pages = Math.max(1, Math.ceil(total / state.limit));
+  els.pageInfo.textContent = `${page} / ${pages}（全${total}件）`;
   els.prev.disabled = state.offset <= 0;
-  els.next.disabled = state.offset + state.limit >= state.total;
+  els.next.disabled = state.offset + state.limit >= total;
 }
 
-async function openViewer(id) {
-  try {
-    const item = await fetchJSON(`/api/items/${id}`);
-    els.modal.hidden = false;
-    els.viewerTitle.textContent = item.title || "(無題)";
-    els.viewerMeta.innerHTML = `
-      <dt>巻 / 頁</dt><dd>${item.volume} / ${item.page}</dd>
-      <dt>尊格</dt><dd>${escapeHTML(item.deity_category || "—")}</dd>
-      <dt>IIIF Manifest</dt><dd><a href="${item.iiif_manifest_url}" target="_blank" rel="noopener">${item.iiif_manifest_url}</a></dd>
-    `;
-    initViewer(item.iiif_image_url);
-  } catch (e) {
-    showStatus(`詳細取得失敗: ${e.message}`);
-  }
+function openViewer(item) {
+  els.modal.hidden = false;
+  els.viewerTitle.textContent = item.title || "(無題)";
+  els.viewerMeta.innerHTML = `
+    <dt>巻 / 頁</dt><dd>${item.volume} / ${item.page}</dd>
+    <dt>尊格</dt><dd>${escapeHTML(item.deity_category || "—")}</dd>
+    <dt>IIIF Manifest</dt><dd><a href="${item.iiif_manifest_url}" target="_blank" rel="noopener">${item.iiif_manifest_url}</a></dd>
+    <dt>注意</dt><dd>叩き台のサンプル URL は本家エンドポイント未調査のため、画像読込が失敗することがあります。</dd>
+  `;
+  initViewer(item.iiif_image_url);
 }
 
 function initViewer(tileSource) {
@@ -168,6 +183,7 @@ function initViewer(tileSource) {
     osdInstance.destroy();
     osdInstance = null;
   }
+  els.viewer.innerHTML = "";
   if (typeof OpenSeadragon === "undefined") {
     els.viewer.textContent = "OpenSeadragon の読み込みに失敗しました。";
     return;
@@ -178,6 +194,14 @@ function initViewer(tileSource) {
     tileSources: tileSource,
     showNavigationControl: true,
     crossOriginPolicy: "Anonymous",
+  });
+  osdInstance.addHandler("open-failed", (ev) => {
+    els.viewer.innerHTML = `
+      <div style="padding:20px;color:#faf6ef;font-size:13px;line-height:1.7;">
+        画像 (info.json) の読み込みに失敗しました。<br>
+        サンプル URL は本家エンドポイント未調査のため、現状では表示できません。<br>
+        <code style="display:block;margin-top:8px;color:#c1272d;">${escapeHTML(tileSource)}</code>
+      </div>`;
   });
 }
 
@@ -199,16 +223,18 @@ els.form.addEventListener("submit", (ev) => {
   ev.preventDefault();
   state.q = els.input.value.trim();
   state.offset = 0;
-  loadResults();
+  applyFilters();
 });
 
 els.prev.addEventListener("click", () => {
   state.offset = Math.max(0, state.offset - state.limit);
-  loadResults();
+  renderResults();
+  updatePager();
 });
 els.next.addEventListener("click", () => {
   state.offset += state.limit;
-  loadResults();
+  renderResults();
+  updatePager();
 });
 
 els.viewerClose.addEventListener("click", closeViewer);
@@ -223,4 +249,4 @@ els.menuToggle.addEventListener("click", () => {
   els.sidebar.classList.toggle("open");
 });
 
-loadFacets().then(loadResults);
+loadData();
