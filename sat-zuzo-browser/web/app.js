@@ -3,12 +3,12 @@
 
 const state = {
   q: "",
-  category: "",
+  titleFilter: "",
   limit: 60,
   offset: 0,
   all: [],
   filtered: [],
-  facets: { 尊格: [] },
+  currentIndex: -1,
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -26,11 +26,13 @@ const els = {
   viewerClose: $("#viewer-close"),
   viewerTitle: $("#viewer-title"),
   viewerMeta: $("#viewer-meta"),
+  viewerPrev: $("#viewer-prev"),
+  viewerNext: $("#viewer-next"),
   menuToggle: $("#menu-toggle"),
   sidebar: $("#sidebar"),
 };
 
-let osdInstance = null;
+// ── データ読み込み ──────────────────────────────
 
 async function fetchJSON(url) {
   const resp = await fetch(url);
@@ -39,11 +41,7 @@ async function fetchJSON(url) {
 }
 
 function showStatus(message) {
-  if (!message) {
-    els.status.hidden = true;
-    els.status.textContent = "";
-    return;
-  }
+  if (!message) { els.status.hidden = true; els.status.textContent = ""; return; }
   els.status.hidden = false;
   els.status.textContent = message;
 }
@@ -53,7 +51,6 @@ async function loadData() {
   try {
     const data = await fetchJSON("data/items.json");
     state.all = data.items || [];
-    state.facets = data.facets || { 尊格: [] };
     renderFacets();
     applyFilters();
     showStatus(state.all.length ? null : "items.json が空です。");
@@ -62,45 +59,37 @@ async function loadData() {
   }
 }
 
+// ── 絞り込みフィルタ ────────────────────────────
+
 function renderFacets() {
-  const counts = countByCategory(state.all);
-  els.facetDeity.innerHTML = "";
-  els.facetDeity.appendChild(createFacetButton("すべて", "", state.all.length));
-  for (const value of state.facets["尊格"] || []) {
-    els.facetDeity.appendChild(createFacetButton(value, value, counts.get(value) || 0));
+  // タイトルごとに件数を集計し、降順ソートしてボタンを生成
+  const counts = new Map();
+  for (const it of state.all) {
+    if (!it.title) continue;
+    counts.set(it.title, (counts.get(it.title) || 0) + 1);
   }
-  // 「尊格」リストに無いカテゴリ（曼荼羅など）も追加
-  for (const [value, n] of counts) {
-    if (!(state.facets["尊格"] || []).includes(value)) {
-      els.facetDeity.appendChild(createFacetButton(value, value, n));
-    }
+  const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+
+  els.facetDeity.innerHTML = "";
+  els.facetDeity.appendChild(makeFacetBtn("すべて", "", state.all.length));
+  for (const [title, n] of sorted) {
+    els.facetDeity.appendChild(makeFacetBtn(title, title, n));
   }
   updateFacetActive();
 }
 
-function countByCategory(items) {
-  const m = new Map();
-  for (const it of items) {
-    if (!it.deity_category) continue;
-    m.set(it.deity_category, (m.get(it.deity_category) || 0) + 1);
-  }
-  return m;
-}
-
-function createFacetButton(label, value, count) {
+function makeFacetBtn(label, value, count) {
   const li = document.createElement("li");
   const btn = document.createElement("button");
   btn.type = "button";
   btn.dataset.value = value;
   btn.textContent = label;
-  if (count != null) {
-    const span = document.createElement("span");
-    span.className = "count";
-    span.textContent = `(${count})`;
-    btn.appendChild(span);
-  }
+  const span = document.createElement("span");
+  span.className = "count";
+  span.textContent = `(${count})`;
+  btn.appendChild(span);
   btn.addEventListener("click", () => {
-    state.category = value;
+    state.titleFilter = value;
     state.offset = 0;
     updateFacetActive();
     applyFilters();
@@ -112,28 +101,28 @@ function createFacetButton(label, value, count) {
 
 function updateFacetActive() {
   els.facetDeity.querySelectorAll("button").forEach((b) => {
-    b.classList.toggle("active", b.dataset.value === state.category);
+    b.classList.toggle("active", b.dataset.value === state.titleFilter);
   });
 }
+
+// ── フィルタ＆検索 ──────────────────────────────
 
 function applyFilters() {
   const q = state.q.toLowerCase();
   state.filtered = state.all.filter((it) => {
-    if (state.category && it.deity_category !== state.category) return false;
+    if (state.titleFilter && it.title !== state.titleFilter) return false;
     if (q) {
-      const hay = `${it.title || ""} ${it.deity_category || ""}`.toLowerCase();
+      const hay = (it.title || "").toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
   });
   renderResults();
   updatePager();
-  if (state.filtered.length === 0) {
-    showStatus("該当する画像がありません。");
-  } else {
-    showStatus(null);
-  }
+  showStatus(state.filtered.length === 0 ? "該当する画像がありません。" : null);
 }
+
+// ── グリッド描画 ────────────────────────────────
 
 function renderResults() {
   const slice = state.filtered.slice(state.offset, state.offset + state.limit);
@@ -157,13 +146,21 @@ function renderResults() {
         <p class="meta-line">巻${item.volume} / 頁${item.page}</p>
       </div>
     `;
-    li.addEventListener("click", () => openViewer(item));
+    li.addEventListener("click", () => {
+      const idx = state.filtered.indexOf(item);
+      openViewer(idx);
+    });
     li.addEventListener("keydown", (ev) => {
-      if (ev.key === "Enter") openViewer(item);
+      if (ev.key === "Enter") {
+        const idx = state.filtered.indexOf(item);
+        openViewer(idx);
+      }
     });
     els.results.appendChild(li);
   }
 }
+
+// ── ページャ ────────────────────────────────────
 
 function updatePager() {
   const total = state.filtered.length;
@@ -174,57 +171,54 @@ function updatePager() {
   els.next.disabled = state.offset + state.limit >= total;
 }
 
-function openViewer(item) {
+// ── ビューワ ────────────────────────────────────
+
+function openViewer(index) {
+  const item = state.filtered[index];
+  if (!item) return;
+  state.currentIndex = index;
+
   els.modal.hidden = false;
   els.viewerTitle.textContent = item.title || "(無題)";
   els.viewerMeta.innerHTML = `
     <dt>巻 / 頁</dt><dd>巻${item.volume} / 頁${item.page}</dd>
-    ${item.deity_category ? `<dt>尊格</dt><dd>${escapeHTML(item.deity_category)}</dd>` : ""}
     <dt>出典</dt><dd><a href="${escapeHTML(item.iiif_manifest_url)}" target="_blank" rel="noopener">SAT大正蔵図像DB</a></dd>
   `;
-  initViewer(item.iiif_image_service || item.iiif_image_url);
+
+  // 前後ボタンの活性制御
+  els.viewerPrev.disabled = index <= 0;
+  els.viewerNext.disabled = index >= state.filtered.length - 1;
+
+  loadViewerImage(item.iiif_image_service);
 }
 
-function initViewer(imageService) {
-  if (osdInstance) {
-    osdInstance.destroy();
-    osdInstance = null;
-  }
-  els.viewer.innerHTML = "";
-  if (typeof OpenSeadragon === "undefined") {
-    els.viewer.textContent = "OpenSeadragon の読み込みに失敗しました。";
+function loadViewerImage(imageService) {
+  els.viewer.innerHTML = '<p class="viewer-msg">読み込み中…</p>';
+  if (!imageService) {
+    els.viewer.innerHTML = '<p class="viewer-msg">画像URLが不明です。</p>';
     return;
   }
-  // CORS制約のためIIIFタイルの代わりに高解像度JPEGを直接ロード
-  const imageUrl = imageService
-    ? `${imageService}/full/1500,/0/default.jpg`
-    : null;
-  if (!imageUrl) {
-    els.viewer.innerHTML = `<div style="padding:20px;color:#faf6ef;">画像URLが不明です。</div>`;
-    return;
-  }
-  osdInstance = OpenSeadragon({
-    element: els.viewer,
-    prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-    tileSources: { type: "image", url: imageUrl },
-    showNavigationControl: true,
-    gestureSettingsMouse: { scrollToZoom: true },
+  const img = document.createElement("img");
+  img.className = "viewer-img";
+  img.alt = "";
+  img.src = `${imageService}/full/1500,/0/default.jpg`;
+  img.addEventListener("load", () => {
+    els.viewer.innerHTML = "";
+    els.viewer.appendChild(img);
+    els.viewer.scrollTop = 0;
+  });
+  img.addEventListener("error", () => {
+    els.viewer.innerHTML = '<p class="viewer-msg">画像を読み込めませんでした。</p>';
   });
 }
 
 function closeViewer() {
   els.modal.hidden = true;
-  if (osdInstance) {
-    osdInstance.destroy();
-    osdInstance = null;
-  }
+  els.viewer.innerHTML = "";
+  state.currentIndex = -1;
 }
 
-function escapeHTML(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-  }[c]));
-}
+// ── イベント ────────────────────────────────────
 
 els.form.addEventListener("submit", (ev) => {
   ev.preventDefault();
@@ -237,23 +231,42 @@ els.prev.addEventListener("click", () => {
   state.offset = Math.max(0, state.offset - state.limit);
   renderResults();
   updatePager();
+  window.scrollTo(0, 0);
 });
 els.next.addEventListener("click", () => {
   state.offset += state.limit;
   renderResults();
   updatePager();
+  window.scrollTo(0, 0);
 });
 
 els.viewerClose.addEventListener("click", closeViewer);
-els.modal.addEventListener("click", (ev) => {
-  if (ev.target === els.modal) closeViewer();
-});
+els.modal.addEventListener("click", (ev) => { if (ev.target === els.modal) closeViewer(); });
 document.addEventListener("keydown", (ev) => {
-  if (ev.key === "Escape" && !els.modal.hidden) closeViewer();
+  if (els.modal.hidden) return;
+  if (ev.key === "Escape") closeViewer();
+  if (ev.key === "ArrowLeft") navigateViewer(-1);
+  if (ev.key === "ArrowRight") navigateViewer(1);
 });
+
+els.viewerPrev.addEventListener("click", () => navigateViewer(-1));
+els.viewerNext.addEventListener("click", () => navigateViewer(1));
+
+function navigateViewer(delta) {
+  const next = state.currentIndex + delta;
+  if (next >= 0 && next < state.filtered.length) openViewer(next);
+}
 
 els.menuToggle.addEventListener("click", () => {
   els.sidebar.classList.toggle("open");
 });
+
+// ── ユーティリティ ───────────────────────────────
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[c]));
+}
 
 loadData();
