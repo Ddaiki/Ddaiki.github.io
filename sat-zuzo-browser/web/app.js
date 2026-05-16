@@ -180,9 +180,11 @@ function openViewer(index) {
 
   els.modal.hidden = false;
   els.viewerTitle.textContent = item.title || "(無題)";
+  const vol = String(item.volume).padStart(2, "0");
+  const satUrl = `https://dzkimgs.l.u-tokyo.ac.jp/SATi/images.php?vol=${vol}`;
   els.viewerMeta.innerHTML = `
     <dt>巻 / 頁</dt><dd>巻${item.volume} / 頁${item.page}</dd>
-    <dt>出典</dt><dd><a href="${escapeHTML(item.iiif_manifest_url)}" target="_blank" rel="noopener">SAT大正蔵図像DB</a></dd>
+    <dt>出典</dt><dd><a href="${escapeHTML(satUrl)}" target="_blank" rel="noopener">SAT大正蔵図像DB 第${item.volume}巻</a><span class="meta-note">（本家サイトで p.${item.page} を参照）</span></dd>
   `;
 
   // 前後ボタンの活性制御
