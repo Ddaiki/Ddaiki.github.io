@@ -1,0 +1,69 @@
+{
+  "_comment": "サンプル IIIF Presentation API v2 風レコード。実エンドポイントが 403 だったためダミー値。実 URL は fetch_manifests.py が解決する。",
+  "items": [
+    {
+      "volume": 1,
+      "page": 1,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/01/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/01/info.json",
+      "title": "金剛界曼荼羅・成身会",
+      "deity_category": "曼荼羅"
+    },
+    {
+      "volume": 1,
+      "page": 2,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/02/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/02/info.json",
+      "title": "大日如来",
+      "deity_category": "仏"
+    },
+    {
+      "volume": 1,
+      "page": 3,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/03/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/03/info.json",
+      "title": "観自在菩薩",
+      "deity_category": "菩薩"
+    },
+    {
+      "volume": 1,
+      "page": 4,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/04/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/04/info.json",
+      "title": "不動明王",
+      "deity_category": "明王"
+    },
+    {
+      "volume": 1,
+      "page": 5,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/05/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/05/info.json",
+      "title": "帝釈天",
+      "deity_category": "天"
+    },
+    {
+      "volume": 1,
+      "page": 6,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/06/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/06/info.json",
+      "title": "毘沙門天",
+      "deity_category": "天"
+    },
+    {
+      "volume": 1,
+      "page": 7,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/07/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/07/info.json",
+      "title": "十二神将・寅神",
+      "deity_category": "神将"
+    },
+    {
+      "volume": 1,
+      "page": 8,
+      "iiif_manifest_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/08/manifest.json",
+      "iiif_image_url": "https://dzkimgs.l.u-tokyo.ac.jp/iiif/zz/01/08/info.json",
+      "title": "弥勒菩薩",
+      "deity_category": "菩薩"
+    }
+  ]
+}
