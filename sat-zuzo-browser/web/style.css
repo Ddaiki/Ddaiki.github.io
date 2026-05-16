@@ -125,9 +125,15 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .card .thumb {
   width: 100%; aspect-ratio: 3 / 4;
-  background: #ece6dc center / cover no-repeat;
+  background: #ece6dc;
+  overflow: hidden;
   display: flex; align-items: center; justify-content: center;
-  color: var(--indigo); font-family: "Shippori Mincho", serif; font-size: 28px;
+}
+.card .thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.card .thumb-label {
+  color: var(--indigo); font-family: "Shippori Mincho", serif; font-size: 24px;
 }
 .card .body { padding: 10px 12px; }
 .card .title {

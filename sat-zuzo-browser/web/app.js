@@ -142,8 +142,16 @@ function renderResults() {
     const li = document.createElement("li");
     li.className = "card";
     li.tabIndex = 0;
+    const thumbSrc = item.iiif_image_service
+      ? `${item.iiif_image_service}/full/200,/0/default.jpg`
+      : null;
     li.innerHTML = `
-      <div class="thumb">${escapeHTML(item.deity_category || "—")}</div>
+      <div class="thumb">
+        ${thumbSrc
+          ? `<img src="${escapeHTML(thumbSrc)}" alt="${escapeHTML(item.title || "図像")}" loading="lazy" onerror="this.style.display='none'">`
+          : `<span class="thumb-label">${escapeHTML(item.title || "—")}</span>`
+        }
+      </div>
       <div class="body">
         <p class="title">${escapeHTML(item.title || "(無題)")}</p>
         <p class="meta-line">巻${item.volume} / 頁${item.page}</p>
@@ -170,15 +178,14 @@ function openViewer(item) {
   els.modal.hidden = false;
   els.viewerTitle.textContent = item.title || "(無題)";
   els.viewerMeta.innerHTML = `
-    <dt>巻 / 頁</dt><dd>${item.volume} / ${item.page}</dd>
-    <dt>尊格</dt><dd>${escapeHTML(item.deity_category || "—")}</dd>
-    <dt>IIIF Manifest</dt><dd><a href="${item.iiif_manifest_url}" target="_blank" rel="noopener">${item.iiif_manifest_url}</a></dd>
-    <dt>注意</dt><dd>叩き台のサンプル URL は本家エンドポイント未調査のため、画像読込が失敗することがあります。</dd>
+    <dt>巻 / 頁</dt><dd>巻${item.volume} / 頁${item.page}</dd>
+    ${item.deity_category ? `<dt>尊格</dt><dd>${escapeHTML(item.deity_category)}</dd>` : ""}
+    <dt>出典</dt><dd><a href="${escapeHTML(item.iiif_manifest_url)}" target="_blank" rel="noopener">SAT大正蔵図像DB</a></dd>
   `;
-  initViewer(item.iiif_image_url);
+  initViewer(item.iiif_image_service || item.iiif_image_url);
 }
 
-function initViewer(tileSource) {
+function initViewer(imageService) {
   if (osdInstance) {
     osdInstance.destroy();
     osdInstance = null;
@@ -188,20 +195,20 @@ function initViewer(tileSource) {
     els.viewer.textContent = "OpenSeadragon の読み込みに失敗しました。";
     return;
   }
+  // CORS制約のためIIIFタイルの代わりに高解像度JPEGを直接ロード
+  const imageUrl = imageService
+    ? `${imageService}/full/1500,/0/default.jpg`
+    : null;
+  if (!imageUrl) {
+    els.viewer.innerHTML = `<div style="padding:20px;color:#faf6ef;">画像URLが不明です。</div>`;
+    return;
+  }
   osdInstance = OpenSeadragon({
     element: els.viewer,
     prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-    tileSources: tileSource,
+    tileSources: { type: "image", url: imageUrl },
     showNavigationControl: true,
-    crossOriginPolicy: "Anonymous",
-  });
-  osdInstance.addHandler("open-failed", (ev) => {
-    els.viewer.innerHTML = `
-      <div style="padding:20px;color:#faf6ef;font-size:13px;line-height:1.7;">
-        画像 (info.json) の読み込みに失敗しました。<br>
-        サンプル URL は本家エンドポイント未調査のため、現状では表示できません。<br>
-        <code style="display:block;margin-top:8px;color:#c1272d;">${escapeHTML(tileSource)}</code>
-      </div>`;
+    gestureSettingsMouse: { scrollToZoom: true },
   });
 }
 
