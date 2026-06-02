@@ -264,8 +264,9 @@ function permitLine(m) {
   if (m.permit && m.permit.snapshot && m.permit.snapshot.valid_until)
     parts.push(`有効期間: ${esc(m.permit.snapshot.valid_until)}`);
   if (m.f.p != null) parts.push(`経審P点: ${m.f.p}`);
-  const checked = (m.permit && m.permit.last_checked) || (m.kmeta && m.kmeta.last_checked);
-  if (checked) parts.push(`<span class="base-note">自動取得 ${esc(checked)}</span>`);
+  // 「自動取得」表示は、許可情報が実際に取得できた社のみ（年金/許可の最新化が成功したとき）
+  if (m.permit && m.permit.last_checked && m.permit.snapshot && m.permit.snapshot.trades && m.permit.snapshot.trades.length)
+    parts.push(`<span class="base-note">許可情報 自動取得 ${esc(m.permit.last_checked)}</span>`);
   return parts.length ? `<div class="co-detail">${parts.join(' ／ ')}</div>` : '';
 }
 function renderList() {

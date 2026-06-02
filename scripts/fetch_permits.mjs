@@ -11,7 +11,8 @@ import { fetchText, stripTags, sleep, readJSON, writeJSON, loadCompanies, today 
 const DATA_DIR = path.resolve(import.meta.dirname, '..', 'cockpit-7r2x9k', 'data');
 const SEARCH_URL = process.env.MLIT_SEARCH_URL || 'https://etsuran2.mlit.go.jp/TAKKEN/kensetuKensaku.do';
 const LIMIT = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : Infinity;
-const WAIT_MS = 4000;
+const WAIT_MS = Number(process.env.WAIT_MS || 1500);
+const PROBE = !!process.env.PROBE;
 
 // 許可番号 "26-002465" -> {gyosei:"26", num:"002465"}
 function splitLicense(no) {
@@ -53,8 +54,34 @@ function diff(prev, cur) {
   return changes;
 }
 
+async function probe(companies) {
+  const c = companies[0];
+  const { gyosei, num } = splitLicense(c.license_no);
+  console.log(`PROBE 国交省 ${c.name} (許可番号 ${c.license_no} -> gyosei=${gyosei} num=${num})`);
+  console.log(`SEARCH_URL = ${SEARCH_URL}`);
+  const base = SEARCH_URL.replace(/kensetuKensaku\.do.*$/, '');
+  for (const attempt of [
+    { label: 'GET top', url: base, opts: {} },
+    { label: 'GET kensetuKensaku', url: SEARCH_URL, opts: {} },
+    { label: 'GET ?gyoseiCd&kyokaNo', url: `${SEARCH_URL}?gyoseiCd=${gyosei}&kyokaNo=${num}`, opts: {} },
+  ]) {
+    try {
+      const html = await fetchText(attempt.url, { ...attempt.opts, retries: 0, timeoutMs: 15000 });
+      console.log(`\n===== ${attempt.label} : OK len=${html.length} =====`);
+      console.log('許可番号 含む?', /許可番号/.test(html), '| form数', (html.match(/<form/gi) || []).length);
+      (html.match(/<form[^>]*>/gi) || []).slice(0, 3).forEach((f) => console.log('FORM:', f));
+      (html.match(/<input[^>]*>/gi) || []).slice(0, 25).forEach((i) => console.log('INPUT:', i.replace(/\s+/g, ' ')));
+      console.log('--- HTML head 1500 ---\n', html.slice(0, 1500));
+    } catch (e) {
+      console.log(`\n===== ${attempt.label} : FAIL ${e.message} =====`);
+    }
+    await sleep(1500);
+  }
+}
+
 async function main() {
   const companies = loadCompanies(DATA_DIR).filter((c) => splitLicense(c.license_no));
+  if (PROBE) { await probe(companies); return; }
   const permits = readJSON(`${DATA_DIR}/permits.json`, {});
   const date = today();
   let changedCount = 0, ok = 0, failed = 0, n = 0;

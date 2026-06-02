@@ -10,7 +10,7 @@ name: data
 #   task=insured 等を limit=3 で実行し、ログを見てエンドポイント/抽出を確定すること。
 on:
   push:
-    branches: [main, claude/cockpit-improvements-BwSls]
+    branches: [main]
     paths: ['cockpit-7r2x9k/data/companies.csv']
   schedule:
     - cron: '0 21 5 * *'  # 毎月6日 06:00 JST : 被保険者数＋許可
@@ -26,6 +26,11 @@ on:
         description: 先頭N社だけ処理（検証用・空で全件）
         required: false
         default: ''
+      probe:
+        description: プローブ（1社だけ取得してHTML構造をログ出力。構造解明用）
+        type: choice
+        options: ['no', 'yes']
+        default: 'no'
 
 permissions:
   contents: write
@@ -37,6 +42,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -51,6 +57,7 @@ jobs:
           EVENT: ${{ github.event_name }}
           TASK: ${{ github.event.inputs.task }}
           SCHED: ${{ github.event.schedule }}
+          PROBE: ${{ github.event.inputs.probe == 'yes' && '1' || '' }}
         run: |
           set -u
           run_build=0; run_ins=0; run_perm=0; run_keishin=0
