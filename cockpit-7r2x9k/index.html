@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<title>瓦・伝統建設業コクピット</title>
+<meta name="description" content="瓦・社寺建築・伝統建設業の注目企業 業界分析ダッシュボード（非公開）" />
+
+<!-- iPhone ホーム画面ショートカット / PWA -->
+<meta name="theme-color" content="#163a2f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="瓦コクピット" />
+<link rel="apple-touch-icon" href="icon-180.png" />
+<link rel="icon" type="image/png" href="icon-192.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <!-- ヘッダ / あいさつ -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">瓦コクピット</span>
+      </div>
+      <div class="greeting">
+        <div id="greet" class="greet-line">こんにちは</div>
+        <div id="today" class="greet-date"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 本日の注目 -->
+    <section class="card spotlight" id="spotlight" aria-label="本日の注目企業">
+      <div class="card-eyebrow">本日の注目企業</div>
+      <div id="spotlight-body" class="spotlight-body">読み込み中…</div>
+    </section>
+
+    <!-- 自社サマリー -->
+    <section class="card" id="self" aria-label="自社サマリー">
+      <h2 class="card-title">自社サマリー<small id="self-name"></small></h2>
+      <div id="self-kpis" class="kpi-grid"></div>
+      <div id="self-fortune" class="fortune"></div>
+    </section>
+
+    <!-- 業績ランキング -->
+    <section class="card" aria-label="業績ランキング">
+      <h2 class="card-title">業績</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" data-rank="revenue">売上高 上位</button>
+        <button class="tab" data-rank="revenue_low">売上高 下位</button>
+        <button class="tab" data-rank="equity">自己資本 上位</button>
+      </div>
+      <div id="rank-list" class="bar-list"></div>
+      <div id="insolvency" class="warn-block"></div>
+    </section>
+
+    <!-- 雇用の増減 -->
+    <section class="card" aria-label="雇用の増減">
+      <h2 class="card-title">雇用（被保険者数）の増減</h2>
+      <p class="card-note">最古スナップショット → 最新スナップショットの差。年金機構データで毎月自動更新。</p>
+      <div class="chart-wrap"><canvas id="employChart" height="320"></canvas></div>
+    </section>
+
+    <!-- 業界マップ -->
+    <section class="card" aria-label="業界の構成">
+      <h2 class="card-title">業界の構成</h2>
+      <div class="mini-grid">
+        <div><h3 class="mini-title">地域分布</h3><div id="dist-region" class="bar-list compact"></div></div>
+        <div><h3 class="mini-title">法人 / 個人</h3><div id="dist-type" class="bar-list compact"></div></div>
+        <div><h3 class="mini-title">許可区分</h3><div id="dist-license" class="bar-list compact"></div></div>
+      </div>
+    </section>
+
+    <!-- 企業一覧 -->
+    <section class="card" aria-label="企業一覧">
+      <h2 class="card-title">企業一覧 <span id="company-count" class="count-pill"></span></h2>
+      <div class="table-controls">
+        <input id="search" type="search" placeholder="社名・代表者・地域で絞り込み" autocomplete="off" />
+        <select id="sortkey">
+          <option value="revenue">売上高 順</option>
+          <option value="equity">自己資本 順</option>
+          <option value="insured">被保険者数 順</option>
+          <option value="employ_delta">雇用 増減順</option>
+          <option value="name">社名順</option>
+        </select>
+      </div>
+      <div id="company-list" class="company-list"></div>
+    </section>
+
+    <!-- 業界ニュース -->
+    <section class="card" aria-label="業界ニュース">
+      <h2 class="card-title">業界ニュース <span id="news-updated" class="count-pill"></span></h2>
+      <div id="news-list" class="news-list"></div>
+    </section>
+
+    <footer class="foot">
+      <div>データ: 経営事項審査(CIIC) / 建設業許可(国交省) / 適用事業所(年金機構) / Google News</div>
+      <div class="foot-note">※非公開ページ（noindex）。財務・雇用は公開情報を基に自動集計。数値は参考値です。</div>
+      <div id="data-stamp" class="foot-note"></div>
+    </footer>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "ddaiki-cockpit-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Data pipeline scripts for the industry-analysis cockpit",
+  "scripts": {
+    "build": "node scripts/xlsx_to_json.mjs",
+    "news": "node scripts/fetch_news.mjs",
+    "insured": "node scripts/fetch_insured.mjs",
+    "permits": "node scripts/fetch_permits.mjs",
+    "keishin": "node scripts/fetch_keishin.mjs"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "xlsx": "^0.18.5"
+  }
+}

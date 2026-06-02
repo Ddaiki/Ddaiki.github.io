@@ -1,0 +1,87 @@
+name: data
+
+# 公的データの自動取得とExcel→JSON変換
+#  - push(companies.xlsx変更) : マスター再変換
+#  - 月次 cron               : 被保険者数(年金機構) と 建設業許可(国交省)
+#  - 年次 cron               : 経営事項審査(CIIC)
+#  - 手動(workflow_dispatch) : task を選んで実行（初回検証・スポット更新用、limitで件数制限可）
+#
+# ※政府系サイトのスクレイパーは構造変更で壊れやすいベストエフォート。初回は workflow_dispatch で
+#   task=insured 等を limit=3 で実行し、ログを見てエンドポイント/抽出を確定すること。
+on:
+  push:
+    branches: [main, claude/industry-analysis-cockpit-BwSls]
+    paths: ['cockpit-7r2x9k/data/companies.xlsx']
+  schedule:
+    - cron: '0 21 5 * *'  # 毎月6日 06:00 JST : 被保険者数＋許可
+    - cron: '30 21 5 7 *' # 毎年7月6日 06:30 JST : 経審
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 実行するタスク
+        type: choice
+        options: [all, build, insured, permits, keishin]
+        default: all
+      limit:
+        description: 先頭N社だけ処理（検証用・空で全件）
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+
+      - name: Run pipeline
+        env:
+          LIMIT: ${{ github.event.inputs.limit }}
+          EVENT: ${{ github.event_name }}
+          TASK: ${{ github.event.inputs.task }}
+          SCHED: ${{ github.event.schedule }}
+        run: |
+          set -u
+          run_build=0; run_ins=0; run_perm=0; run_keishin=0
+          case "$EVENT" in
+            push) run_build=1 ;;
+            workflow_dispatch)
+              case "$TASK" in
+                all) run_build=1; run_ins=1; run_perm=1; run_keishin=1 ;;
+                build) run_build=1 ;;
+                insured) run_ins=1 ;;
+                permits) run_perm=1 ;;
+                keishin) run_keishin=1 ;;
+              esac ;;
+            schedule)
+              [ "$SCHED" = "0 21 5 * *" ]  && { run_build=1; run_ins=1; run_perm=1; }
+              [ "$SCHED" = "30 21 5 7 *" ] && run_keishin=1 ;;
+          esac
+          echo "build=$run_build insured=$run_ins permits=$run_perm keishin=$run_keishin"
+          [ "$run_build" = 1 ]   && node scripts/xlsx_to_json.mjs   || true
+          [ "$run_ins" = 1 ]     && node scripts/fetch_insured.mjs  || true
+          [ "$run_perm" = 1 ]    && node scripts/fetch_permits.mjs  || true
+          [ "$run_keishin" = 1 ] && node scripts/fetch_keishin.mjs  || true
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cockpit-7r2x9k/data/
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            git commit -m "chore(data): auto-update [skip ci]"
+            git push
+          fi

@@ -1,0 +1,38 @@
+name: news
+
+# 業界・関連会社ニュースを Google News RSS から毎日取得して news.json を更新
+on:
+  schedule:
+    - cron: '0 20 * * *' # 毎日 05:00 JST (20:00 UTC 前日)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news
+  cancel-in-progress: false
+
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Fetch news
+        run: node scripts/fetch_news.mjs
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cockpit-7r2x9k/data/news.json
+          if git diff --cached --quiet; then
+            echo "no news changes"
+          else
+            git commit -m "chore(news): auto-update [skip ci]"
+            git push
+          fi

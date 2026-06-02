@@ -1,0 +1,683 @@
+{
+ "26-005677": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 261662,
+   "equity_k": 22996,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 261662,
+   "equity_k": 22996,
+   "fixed_assets_k": 105336,
+   "source": "seed"
+  }
+ ],
+ "23-028070": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": null,
+   "equity_k": 674636,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 1855561,
+   "equity_k": null,
+   "fixed_assets_k": null,
+   "source": "seed"
+  }
+ ],
+ "16-011567": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": null,
+   "equity_k": 701585,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 1135552,
+   "equity_k": null,
+   "fixed_assets_k": null,
+   "source": "seed"
+  }
+ ],
+ "26-002465": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 130434,
+   "equity_k": 55705,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 52175,
+   "fixed_assets_k": 19318,
+   "source": "seed"
+  }
+ ],
+ "26-003068": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 333871,
+   "equity_k": 102237,
+   "fixed_assets_k": 83921,
+   "source": "seed"
+  }
+ ],
+ "26-005355": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 93094,
+   "fixed_assets_k": 53311,
+   "source": "seed"
+  }
+ ],
+ "26-007802": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 103563,
+   "equity_k": 809549,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 794700,
+   "fixed_assets_k": 166139,
+   "source": "seed"
+  }
+ ],
+ "26-008451": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 124446,
+   "equity_k": 66090,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 65049,
+   "fixed_assets_k": 148613,
+   "source": "seed"
+  }
+ ],
+ "26-008508": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 43288,
+   "equity_k": 8604,
+   "fixed_assets_k": 145,
+   "source": "seed"
+  }
+ ],
+ "26-012434": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 347387,
+   "equity_k": 540718,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 182706,
+   "equity_k": 479127,
+   "fixed_assets_k": 527750,
+   "source": "seed"
+  }
+ ],
+ "26-013103": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 70313,
+   "equity_k": 54680,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 62958,
+   "fixed_assets_k": 63523,
+   "source": "seed"
+  }
+ ],
+ "26-013378": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 98706,
+   "fixed_assets_k": 32100,
+   "source": "seed"
+  }
+ ],
+ "26-019518": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 471835,
+   "equity_k": 244602,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 343770,
+   "equity_k": 224281,
+   "fixed_assets_k": 60758,
+   "source": "seed"
+  }
+ ],
+ "26-019549": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": null,
+   "equity_k": 123660,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 122274,
+   "equity_k": null,
+   "fixed_assets_k": 267875,
+   "source": "seed"
+  }
+ ],
+ "26-022071": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 53546,
+   "equity_k": -53897,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 53546,
+   "equity_k": -53897,
+   "fixed_assets_k": 76248,
+   "source": "seed"
+  }
+ ],
+ "26-024846": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 288673,
+   "equity_k": 304203,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 288673,
+   "equity_k": 304203,
+   "fixed_assets_k": 250408,
+   "source": "seed"
+  }
+ ],
+ "26-025240": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 59865,
+   "equity_k": 72755,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 67700,
+   "fixed_assets_k": 45635,
+   "source": "seed"
+  }
+ ],
+ "26-025616": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 112708,
+   "equity_k": 48076,
+   "fixed_assets_k": 1168,
+   "source": "seed"
+  }
+ ],
+ "26-026672": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 43957,
+   "equity_k": 9049,
+   "fixed_assets_k": 28758,
+   "source": "seed"
+  }
+ ],
+ "26-028951": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 94424,
+   "equity_k": 54825,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 94424,
+   "equity_k": 54825,
+   "fixed_assets_k": 7418,
+   "source": "seed"
+  }
+ ],
+ "26-029400": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 175278,
+   "equity_k": 181743,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 181590,
+   "equity_k": 128763,
+   "fixed_assets_k": 167731,
+   "source": "seed"
+  }
+ ],
+ "26-029415": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 14309,
+   "equity_k": 258874,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 149309,
+   "equity_k": 258874,
+   "fixed_assets_k": 42663,
+   "source": "seed"
+  }
+ ],
+ "26-033871": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 22870,
+   "equity_k": 23311,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 24202,
+   "fixed_assets_k": 1078,
+   "source": "seed"
+  }
+ ],
+ "26-034820": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 17830,
+   "equity_k": -50850,
+   "fixed_assets_k": 553,
+   "source": "seed"
+  }
+ ],
+ "26-035361": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 63723,
+   "fixed_assets_k": 62434,
+   "source": "seed"
+  }
+ ],
+ "26-035614": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 137746,
+   "equity_k": 32677,
+   "fixed_assets_k": 2680,
+   "source": "seed"
+  }
+ ],
+ "26-036029": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 73811,
+   "equity_k": 33554,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 53422,
+   "equity_k": 26185,
+   "fixed_assets_k": 5454,
+   "source": "seed"
+  }
+ ],
+ "26-037710": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 19575,
+   "equity_k": 13272,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 19575,
+   "equity_k": 13272,
+   "fixed_assets_k": 0,
+   "source": "seed"
+  }
+ ],
+ "26-038261": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 1083727,
+   "equity_k": 247751,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 1104632,
+   "equity_k": 244720,
+   "fixed_assets_k": 847442,
+   "source": "seed"
+  }
+ ],
+ "26-039877": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 116933,
+   "equity_k": -55186,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 144389,
+   "equity_k": 904,
+   "fixed_assets_k": 25137,
+   "source": "seed"
+  }
+ ],
+ "26-040630": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 9529,
+   "equity_k": 1570,
+   "fixed_assets_k": 29383,
+   "source": "seed"
+  }
+ ],
+ "26-040843": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 846291,
+   "equity_k": 2252943,
+   "fixed_assets_k": 403186,
+   "source": "seed"
+  }
+ ],
+ "26-000347": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 109034,
+   "equity_k": 66882,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 109034,
+   "equity_k": 66882,
+   "fixed_assets_k": 73196,
+   "source": "seed"
+  }
+ ],
+ "26-042868": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 92425,
+   "equity_k": 34375,
+   "fixed_assets_k": 3903,
+   "source": "seed"
+  }
+ ],
+ "00-001739": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 3177539,
+   "equity_k": 3746092,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  }
+ ],
+ "00-009134": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": null,
+   "equity_k": 990853,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 766235,
+   "equity_k": null,
+   "fixed_assets_k": null,
+   "source": "seed"
+  }
+ ],
+ "00-015051": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 344348,
+   "equity_k": 191737,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 394717,
+   "equity_k": 153953,
+   "fixed_assets_k": 105569,
+   "source": "seed"
+  }
+ ],
+ "00-020464": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 230321,
+   "equity_k": 82498,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 384513,
+   "equity_k": 90375,
+   "fixed_assets_k": 12930,
+   "source": "seed"
+  }
+ ],
+ "00-022439": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 8147683,
+   "equity_k": 2483562,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  }
+ ],
+ "00-025211": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 768545,
+   "equity_k": 259409,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  }
+ ],
+ "25-010005": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 160529,
+   "equity_k": 22851,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 245479,
+   "equity_k": 38806,
+   "fixed_assets_k": 55320,
+   "source": "seed"
+  }
+ ],
+ "25-070108": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 107957,
+   "equity_k": 28425,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": null,
+   "fixed_assets_k": 4450,
+   "source": "seed"
+  }
+ ],
+ "22-025589": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 340717,
+   "equity_k": 66169,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  }
+ ],
+ "29-000270": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 231749,
+   "equity_k": -17368,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": -20518,
+   "fixed_assets_k": 10111,
+   "source": "seed"
+  }
+ ],
+ "29-000552": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 272585,
+   "equity_k": 284338,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 295890,
+   "fixed_assets_k": 77755,
+   "source": "seed"
+  }
+ ],
+ "29-005675": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 133151,
+   "equity_k": 243016,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 258175,
+   "fixed_assets_k": 73665,
+   "source": "seed"
+  }
+ ],
+ "29-007527": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 35463,
+   "equity_k": -54260,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": -54231,
+   "fixed_assets_k": 2107,
+   "source": "seed"
+  }
+ ],
+ "29-009074": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 122718,
+   "equity_k": 110681,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 110367,
+   "fixed_assets_k": 87699,
+   "source": "seed"
+  }
+ ],
+ "29-011934": [
+  {
+   "kijunbi": "2022-04",
+   "revenue_k": 123738,
+   "equity_k": 26873,
+   "fixed_assets_k": null,
+   "source": "seed(2022)"
+  },
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": null,
+   "equity_k": 27627,
+   "fixed_assets_k": 18310,
+   "source": "seed"
+  }
+ ],
+ "28-752052": [
+  {
+   "kijunbi": "最新(seed)",
+   "revenue_k": 154001,
+   "equity_k": 38206,
+   "fixed_assets_k": 35740,
+   "source": "seed"
+  }
+ ]
+}
