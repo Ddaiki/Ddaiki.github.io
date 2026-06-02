@@ -1,0 +1,3 @@
+# 業界分析コクピットは非公開（検索エンジン除外）
+User-agent: *
+Disallow: /cockpit-7r2x9k/
