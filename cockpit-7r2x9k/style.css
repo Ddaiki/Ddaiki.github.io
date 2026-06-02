@@ -142,6 +142,12 @@ body{
 .news-meta{font-size:.72rem;color:var(--muted);margin-top:3px}
 .news-empty{color:var(--muted);font-size:.86rem;padding:8px 0}
 
+.base-note{font-size:.66rem;color:#7d93a3;font-weight:500;font-family:"Noto Sans JP",sans-serif;white-space:nowrap}
+.bar-val .base-note{display:inline-block;margin-left:4px}
+.chip small{opacity:.8;font-weight:500}
+.co-detail{margin-top:7px;font-size:.74rem;color:var(--muted);line-height:1.5;border-top:1px dashed var(--line);padding-top:7px}
+.fortune-base{margin-top:9px;font-size:.7rem;color:var(--muted)}
+
 .foot{margin:18px 4px;color:var(--muted);font-size:.72rem;line-height:1.7}
 .foot-note{opacity:.8}
 .loading{color:var(--muted);font-size:.86rem;padding:8px 0}

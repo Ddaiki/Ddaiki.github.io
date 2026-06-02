@@ -34,6 +34,16 @@ function prefOf(address) {
   const m = String(address || '').match(/^(.+?[都道府県])/);
   return m ? m[1] : 'その他';
 }
+// 基準日ラベルを読みやすく
+function dlabel(d) {
+  if (!d) return '基準日不明';
+  const s = String(d);
+  if (/初期|不明/.test(s)) return '基準日不明';
+  if (/seed/i.test(s)) return '初期値';
+  const m = s.match(/(\d{4})[-/年]?\s*(\d{1,2})?/);
+  if (m) return m[1] + (m[2] ? '/' + String(m[2]).padStart(2, '0') : '');
+  return s;
+}
 async function getJSON(name, fallback) {
   try {
     const r = await fetch(DATA + name, { cache: 'no-cache' });
@@ -47,30 +57,37 @@ async function getJSON(name, fallback) {
 
 /* ---------- merge ---------- */
 function financials(recs) {
-  let rev = null, revPrev = null, eq = null, eqPrev = null, fa = null;
+  let rev = null, revPrev = null, revKijunbi = null, revPrevKijunbi = null;
+  let eq = null, eqPrev = null, eqKijunbi = null, eqPrevKijunbi = null;
+  let fa = null, p = null, latestKijunbi = null;
   for (const rec of recs || []) {
-    if (rec.revenue_k != null) { revPrev = rev; rev = rec.revenue_k; }
-    if (rec.equity_k != null) { eqPrev = eq; eq = rec.equity_k; }
+    if (rec.revenue_k != null) { revPrev = rev; revPrevKijunbi = revKijunbi; rev = rec.revenue_k; revKijunbi = rec.kijunbi || null; }
+    if (rec.equity_k != null) { eqPrev = eq; eqPrevKijunbi = eqKijunbi; eq = rec.equity_k; eqKijunbi = rec.kijunbi || null; }
     if (rec.fixed_assets_k != null) fa = rec.fixed_assets_k;
+    if (rec.p_score != null) p = rec.p_score;
+    if (rec.kijunbi) latestKijunbi = rec.kijunbi;
   }
-  return { rev, revPrev, eq, eqPrev, fa };
+  return { rev, revPrev, revKijunbi, revPrevKijunbi, eq, eqPrev, eqKijunbi, eqPrevKijunbi, fa, p, latestKijunbi, records: recs || [] };
 }
 function employment(series) {
-  const s = (series || []).filter((p) => typeof p.count === 'number');
-  if (!s.length) return { latest: null, earliest: null, delta: null, n: 0 };
-  const latest = s[s.length - 1].count;
-  const earliest = s[0].count;
-  return { latest, earliest, delta: latest - earliest, n: s.length, series: s };
+  const all = (series || []).filter((p) => typeof p.count === 'number');
+  if (!all.length) return { latest: null, earliest: null, delta: null, n: 0 };
+  // 基準日が分かるスナップショットが2つ以上あればそれを優先（増減の基準を明確化）
+  const dated = all.filter((p) => p.date && !/初期|不明/.test(String(p.date)));
+  const use = dated.length >= 2 ? dated : all;
+  const first = use[0], last = use[use.length - 1];
+  return { latest: last.count, latestDate: last.date, earliest: first.count, earliestDate: first.date, delta: last.count - first.count, n: use.length, series: all };
 }
 function buildModel(d) {
   return d.companies.companies.map((c) => {
     const f = financials(d.keishin[c.license_no]);
     const emp = employment(d.insured[c.houjin_bangou]);
-    const permit = d.permits[c.license_no];
+    const permit = d.permits[c.license_no] || null;
+    const kmeta = d.keishin[`_meta:${c.license_no}`] || null;
     const changed = permit && Array.isArray(permit.changes) && permit.changes.length > 0;
     const insolvent = f.eq != null && f.eq < 0;
     const bankrupt = /倒産|廃業|解散/.test(c.keishin_status || '');
-    return { ...c, f, emp, changed, insolvent, bankrupt };
+    return { ...c, excludeCompare: !!c.exclude_compare, f, emp, permit, kmeta, changed, insolvent, bankrupt };
   });
 }
 
@@ -89,8 +106,8 @@ function renderGreeting() {
 }
 
 /* ---------- spotlight ---------- */
-function renderSpotlight(model) {
-  const pool = model.filter((m) => m.f.rev != null || m.emp.latest != null);
+function renderSpotlight(compareModel) {
+  const pool = compareModel.filter((m) => m.f.rev != null || m.emp.latest != null);
   if (!pool.length) { $('#spotlight-body').textContent = 'データがありません'; return; }
   const doy = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
   const m = pool[doy % pool.length];
@@ -112,15 +129,13 @@ function renderSpotlight(model) {
 }
 
 /* ---------- self summary ---------- */
-function renderSelf(model) {
-  const me = model.find((m) => m.is_self);
+function renderSelf(compareModel, fullModel) {
+  const me = fullModel.find((m) => m.is_self);
   if (!me) { $('#self').style.display = 'none'; return; }
   $('#self-name').textContent = `（${me.name}）`;
-  const revs = model.map((m) => m.f.rev).filter((v) => v != null);
-  const eqs = model.map((m) => m.f.eq).filter((v) => v != null);
-  const emps = model.map((m) => m.emp.latest).filter((v) => v != null);
+  const revs = compareModel.map((m) => m.f.rev).filter((v) => v != null);
+  const eqs = compareModel.map((m) => m.f.eq).filter((v) => v != null);
   const revPct = percentile(me.f.rev, revs);
-  const eqPct = percentile(me.f.eq, eqs);
 
   const eqArrow = me.f.eqPrev != null && me.f.eq != null
     ? (me.f.eq > me.f.eqPrev ? '<span class="delta-up">▲改善</span>' : me.f.eq < me.f.eqPrev ? '<span class="delta-down">▼減</span>' : '<span class="delta-flat">→</span>')
@@ -129,17 +144,20 @@ function renderSelf(model) {
     : me.emp.delta < 0 ? `<span class="delta-down">${me.emp.delta}</span>`
     : me.emp.delta === 0 ? '<span class="delta-flat">±0</span>' : '';
 
+  const revBase = me.f.revKijunbi ? `基準 ${dlabel(me.f.revKijunbi)}` : '';
+  const eqBase = me.f.eqPrev != null ? `${dlabel(me.f.eqPrevKijunbi)}→${dlabel(me.f.eqKijunbi)}` : (me.f.eqKijunbi ? `基準 ${dlabel(me.f.eqKijunbi)}` : '');
+  const empBase = me.emp.n ? `${dlabel(me.emp.earliestDate)}→${dlabel(me.emp.latestDate)}` : '';
+
   const kpis = [
-    ['売上高', yen(me.f.rev), revPct != null ? `業界 上位${100 - revPct}%圏` : ''],
-    ['自己資本', yen(me.f.eq), eqArrow],
-    ['被保険者数', me.emp.latest != null ? me.emp.latest + '<span class="kpi-unit">人</span>' : '—', empArrow],
+    ['売上高', yen(me.f.rev), [revPct != null ? `業界 上位${100 - revPct}%圏` : '', revBase].filter(Boolean).join(' / ')],
+    ['自己資本', yen(me.f.eq), [eqArrow, eqBase].filter(Boolean).join(' ')],
+    ['被保険者数', me.emp.latest != null ? me.emp.latest + '<span class="kpi-unit">人</span>' : '—', [empArrow, empBase].filter(Boolean).join(' ')],
     ['資本金', yen(me.capital_k), ''],
   ];
   $('#self-kpis').innerHTML = kpis.map(([l, v, s]) =>
     `<div class="kpi"><div class="kpi-label">${l}</div><div class="kpi-value">${v}</div><div class="kpi-sub">${s}</div></div>`
   ).join('');
 
-  // データ由来の「占い」コメント
   const empTxt = me.emp.delta > 0 ? '雇用は<b>増加傾向</b>' : me.emp.delta < 0 ? '雇用は<b>減少</b>' : me.emp.n ? '雇用は<b>横ばい</b>' : '雇用データは未取得';
   const eqTxt = me.insolvent ? '<b>債務超過に注意</b>' : (me.f.eqPrev != null && me.f.eq != null)
     ? (me.f.eq > me.f.eqPrev ? '自己資本は<b>改善</b>' : me.f.eq < me.f.eqPrev ? '自己資本は<b>微減</b>' : '自己資本は安定')
@@ -152,22 +170,24 @@ function renderSelf(model) {
   else if (revPct != null && revPct < 34) advice = '受注単価と高付加価値（社寺・文化財）への寄せ方が伸びしろ。';
   else advice = '堅調。強みの継承と次世代の採用で優位を固められる。';
   $('#self-fortune').innerHTML =
-    `<div class="card-eyebrow">今後を占う</div>${esc(me.name)}は、${empTxt}・${eqTxt}・${posTxt}。${advice}`;
+    `<div class="card-eyebrow">今後を占う</div>${esc(me.name)}は、${empTxt}・${eqTxt}・${posTxt}。${advice}` +
+    `<div class="fortune-base">※比較は HIRAYAMA など「比較対象外」を除いた業界内での位置づけ</div>`;
 }
 
 /* ---------- rankings ---------- */
 let RANK_MODEL = [];
 function renderRank(mode) {
   const list = $('#rank-list');
-  let arr, valFn, clay = false;
-  if (mode === 'revenue') { arr = RANK_MODEL.filter((m) => m.f.rev != null).sort((a, b) => b.f.rev - a.f.rev).slice(0, 8); valFn = (m) => [m.f.rev, yen(m.f.rev)]; }
-  else if (mode === 'revenue_low') { arr = RANK_MODEL.filter((m) => m.f.rev != null).sort((a, b) => a.f.rev - b.f.rev).slice(0, 8); valFn = (m) => [m.f.rev, yen(m.f.rev)]; }
-  else { arr = RANK_MODEL.filter((m) => m.f.eq != null).sort((a, b) => b.f.eq - a.f.eq).slice(0, 8); valFn = (m) => [m.f.eq, yen(m.f.eq)]; clay = true; }
+  let arr, valFn, baseFn, clay = false;
+  if (mode === 'revenue') { arr = RANK_MODEL.filter((m) => m.f.rev != null).sort((a, b) => b.f.rev - a.f.rev).slice(0, 8); valFn = (m) => [m.f.rev, yen(m.f.rev)]; baseFn = (m) => m.f.revKijunbi; }
+  else if (mode === 'revenue_low') { arr = RANK_MODEL.filter((m) => m.f.rev != null).sort((a, b) => a.f.rev - b.f.rev).slice(0, 8); valFn = (m) => [m.f.rev, yen(m.f.rev)]; baseFn = (m) => m.f.revKijunbi; }
+  else { arr = RANK_MODEL.filter((m) => m.f.eq != null).sort((a, b) => b.f.eq - a.f.eq).slice(0, 8); valFn = (m) => [m.f.eq, yen(m.f.eq)]; baseFn = (m) => m.f.eqKijunbi; clay = true; }
   const max = Math.max(...arr.map((m) => Math.abs(valFn(m)[0])), 1);
   list.innerHTML = arr.map((m) => {
     const [v, label] = valFn(m);
     const w = Math.max(3, (Math.abs(v) / max) * 100);
-    return `<div class="bar-row"><div class="bar-head"><span class="bar-name">${m.is_self ? '★ ' : ''}${esc(m.name)}</span><span class="bar-val">${label}</span></div>
+    const base = baseFn(m) ? `<span class="base-note">基準 ${dlabel(baseFn(m))}</span>` : '';
+    return `<div class="bar-row"><div class="bar-head"><span class="bar-name">${m.is_self ? '★ ' : ''}${esc(m.name)}</span><span class="bar-val">${label} ${base}</span></div>
       <div class="bar-track"><div class="bar-fill ${clay ? 'clay' : ''}" style="width:${w}%"></div></div></div>`;
   }).join('') || '<div class="loading">データなし</div>';
 }
@@ -176,15 +196,15 @@ function renderInsolvency(model) {
   const bk = model.filter((m) => m.bankrupt);
   let html = '';
   if (ins.length) html += `<h3>債務超過（自己資本マイナス）${ins.length}社</h3>` +
-    ins.map((m) => `<span class="chip">${esc(m.name)} ${yen(m.f.eq)}</span>`).join('');
+    ins.map((m) => `<span class="chip">${esc(m.name)} ${yen(m.f.eq)}<small>（${dlabel(m.f.eqKijunbi)}）</small></span>`).join('');
   if (bk.length) html += `<h3 style="margin-top:10px">倒産・廃業の記載 ${bk.length}社</h3>` +
     bk.map((m) => `<span class="chip">${esc(m.name)}</span>`).join('');
   $('#insolvency').innerHTML = html;
 }
 
 /* ---------- employment chart ---------- */
-function renderEmployChart(model) {
-  const withDelta = model.filter((m) => m.emp.delta != null && m.emp.n >= 2 && m.emp.delta !== 0);
+function renderEmployChart(compareModel) {
+  const withDelta = compareModel.filter((m) => m.emp.delta != null && m.emp.n >= 2 && m.emp.delta !== 0);
   withDelta.sort((a, b) => b.emp.delta - a.emp.delta);
   const ups = withDelta.filter((m) => m.emp.delta > 0).slice(0, 7);
   const downs = withDelta.filter((m) => m.emp.delta < 0).slice(-7);
@@ -200,7 +220,15 @@ function renderEmployChart(model) {
     data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 4, barThickness: 'flex' }] },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw > 0 ? '+' : ''}${c.raw} 人（最古→最新）` } } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (c) => `${c.raw > 0 ? '+' : ''}${c.raw} 人`,
+            afterLabel: (c) => { const m = picked[c.dataIndex]; return `基準: ${dlabel(m.emp.earliestDate)}（${m.emp.earliest}）→ ${dlabel(m.emp.latestDate)}（${m.emp.latest}）`; },
+          },
+        },
+      },
       scales: {
         x: { grid: { color: '#263a49' }, ticks: { color: '#9fb1bf' }, title: { display: true, text: '被保険者数の増減（人）', color: '#9fb1bf' } },
         y: { grid: { display: false }, ticks: { color: '#e8eef2', font: { size: 11 } } },
@@ -229,6 +257,17 @@ function renderDist(model) {
 
 /* ---------- company list ---------- */
 let LIST_MODEL = [];
+function permitLine(m) {
+  const parts = [];
+  if (m.permit && m.permit.snapshot && m.permit.snapshot.trades && m.permit.snapshot.trades.length)
+    parts.push(`許可業種: ${esc(m.permit.snapshot.trades.join('・'))}`);
+  if (m.permit && m.permit.snapshot && m.permit.snapshot.valid_until)
+    parts.push(`有効期間: ${esc(m.permit.snapshot.valid_until)}`);
+  if (m.f.p != null) parts.push(`経審P点: ${m.f.p}`);
+  const checked = (m.permit && m.permit.last_checked) || (m.kmeta && m.kmeta.last_checked);
+  if (checked) parts.push(`<span class="base-note">自動取得 ${esc(checked)}</span>`);
+  return parts.length ? `<div class="co-detail">${parts.join(' ／ ')}</div>` : '';
+}
 function renderList() {
   const q = $('#search').value.trim();
   const key = $('#sortkey').value;
@@ -252,23 +291,28 @@ function renderList() {
   $('#company-list').innerHTML = arr.map((m) => {
     const badges = [];
     if (m.is_self) badges.push('<span class="self-flag">自社</span>');
+    if (m.excludeCompare) badges.push('<span class="badge">比較対象外</span>');
     if (m.insolvent) badges.push('<span class="badge warn">債務超過</span>');
     if (m.bankrupt) badges.push('<span class="badge warn">倒産記載</span>');
     if (m.changed) badges.push('<span class="badge">許可変更</span>');
     const dCls = m.emp.delta > 0 ? 'delta-up' : m.emp.delta < 0 ? 'delta-down' : 'delta-flat';
     const dStr = m.emp.delta == null ? '' : ` <span class="${dCls}">(${m.emp.delta > 0 ? '+' : ''}${m.emp.delta})</span>`;
+    const empDate = m.emp.latestDate ? `<span class="base-note">${dlabel(m.emp.latestDate)}</span>` : '';
+    const empSpan = m.emp.n >= 2 ? `<span class="base-note">[${dlabel(m.emp.earliestDate)}→${dlabel(m.emp.latestDate)}]</span>` : '';
+    const revBase = m.f.revKijunbi ? `<span class="base-note">基準 ${dlabel(m.f.revKijunbi)}</span>` : '';
     return `<div class="co">
       <div class="co-head"><div><span class="co-name">${esc(m.name)}</span> ${badges.join(' ')}</div>
         <span class="co-loc">${esc(prefOf(m.address))}</span></div>
       <div class="co-metrics">
-        <span>売上 <b>${yen(m.f.rev)}</b></span>
+        <span>売上 <b>${yen(m.f.rev)}</b> ${revBase}</span>
         <span>自己資本 <b>${yen(m.f.eq)}</b></span>
-        <span>被保険者 <b>${m.emp.latest ?? '—'}</b>${dStr}</span>
+        <span>被保険者 <b>${m.emp.latest ?? '—'}</b> ${empDate}${dStr} ${empSpan}</span>
       </div>
+      ${permitLine(m)}
       <div class="co-actions">
         <a href="${NEWS_SEARCH(m.name)}" target="_blank" rel="noopener">ニュース検索</a>
-        <a class="muted" href="${ETSURAN_URL}" target="_blank" rel="noopener">許可確認</a>
-        <a class="muted" href="${CIIC_URL}" target="_blank" rel="noopener">経審確認</a>
+        <a class="muted" href="${ETSURAN_URL}" target="_blank" rel="noopener">許可を公式確認</a>
+        <a class="muted" href="${(m.kmeta && m.kmeta.confirm_url) || CIIC_URL}" target="_blank" rel="noopener">経審を公式確認</a>
         ${m.website ? `<a class="muted" href="${esc(m.website)}" target="_blank" rel="noopener">Web</a>` : ''}
         ${m.instagram ? `<a class="muted" href="${esc(m.instagram)}" target="_blank" rel="noopener">IG</a>` : ''}
       </div>
@@ -302,18 +346,23 @@ async function main() {
     getJSON('news.json', { items: [] }),
   ]);
   const model = buildModel({ companies, insured, keishin, permits });
-  RANK_MODEL = model; LIST_MODEL = model;
+  const compare = model.filter((m) => !m.excludeCompare); // HIRAYAMA等の「比較対象外」を除外
+  RANK_MODEL = compare;
+  LIST_MODEL = model;
 
-  renderSpotlight(model);
-  renderSelf(model);
+  renderSpotlight(compare);
+  renderSelf(compare, model);
   renderRank('revenue');
   renderInsolvency(model);
-  renderEmployChart(model);
+  renderEmployChart(compare);
   renderDist(model);
   renderList();
   renderNews(news);
 
-  $('#data-stamp').textContent = `マスター更新: ${companies.updated ? new Date(companies.updated).toLocaleString('ja-JP') : '—'}`;
+  const excluded = model.filter((m) => m.excludeCompare).map((m) => m.name);
+  $('#data-stamp').textContent =
+    `マスター更新: ${companies.updated ? new Date(companies.updated).toLocaleString('ja-JP') : '—'}` +
+    (excluded.length ? ` ／ 比較対象外: ${excluded.join('、')}` : '');
 
   document.querySelectorAll('.tab').forEach((t) =>
     t.addEventListener('click', () => {

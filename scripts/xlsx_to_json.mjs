@@ -43,6 +43,7 @@ const companies = rows.map((r, i) => {
     keishin_status: s(r['経審ステータス']),
     bunkazai: s(r['文化財入札']),
     is_self: /[○◯oO]/.test(s(r['自社'])),
+    exclude_compare: /[○◯oO]/.test(s(r['比較対象外'])),
   };
 }).filter((c) => c.name);
 
