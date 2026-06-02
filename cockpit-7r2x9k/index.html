@@ -102,6 +102,56 @@
       <div id="news-list" class="news-list"></div>
     </section>
 
+    <!-- 企業追加 FAB & モーダル -->
+    <button id="fab" class="fab" aria-label="注目企業を追加">＋</button>
+    <div id="modal" class="modal" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-label="注目企業を追加">
+        <div class="modal-head">
+          <strong>注目企業を追加</strong>
+          <button id="modal-close" class="modal-close" aria-label="閉じる">×</button>
+        </div>
+        <div class="modal-body">
+          <label class="fld"><span>会社名 <em>*必須</em></span><input id="f-name" type="text" autocomplete="off" /></label>
+          <div class="fld-row">
+            <label class="fld"><span>法人番号（13桁・被保険者数用）</span><input id="f-houjin" type="text" inputmode="numeric" autocomplete="off" /></label>
+            <label class="fld"><span>許可番号（例 26-002465・許可/経審用）</span><input id="f-license" type="text" autocomplete="off" /></label>
+          </div>
+          <div class="fld-row">
+            <label class="fld"><span>大臣知事区分</span><input id="f-class" type="text" placeholder="京都府知事 等" autocomplete="off" /></label>
+            <label class="fld"><span>法人/個人</span>
+              <select id="f-type"><option value="">—</option><option>法人</option><option>個人</option></select>
+            </label>
+          </div>
+          <label class="fld"><span>所在地</span><input id="f-address" type="text" autocomplete="off" /></label>
+          <div class="fld-row">
+            <label class="fld"><span>代表者名</span><input id="f-rep" type="text" autocomplete="off" /></label>
+            <label class="fld"><span>資本金（千円）</span><input id="f-capital" type="text" inputmode="numeric" autocomplete="off" /></label>
+          </div>
+          <div class="fld-row">
+            <label class="fld"><span>Web</span><input id="f-web" type="url" autocomplete="off" /></label>
+            <label class="fld"><span>Instagram</span><input id="f-ig" type="url" autocomplete="off" /></label>
+          </div>
+          <div class="fld-checks">
+            <label><input id="f-exclude" type="checkbox" /> 比較対象外（別格企業）</label>
+            <label><input id="f-self" type="checkbox" /> 自社</label>
+          </div>
+
+          <details id="settings" class="settings">
+            <summary>保存先の設定（初回のみ）</summary>
+            <p class="settings-note">GitHubのアクセストークンを<strong>この端末にのみ</strong>保存します。fine-grained PAT・対象リポジトリ <code>Ddaiki/Ddaiki.github.io</code>・権限 <code>Contents: Read and write</code> を推奨。</p>
+            <label class="fld"><span>GitHub Personal Access Token</span><input id="f-token" type="password" autocomplete="off" placeholder="github_pat_..." /></label>
+            <label class="fld"><span>ブランチ</span><input id="f-branch" type="text" value="main" autocomplete="off" /></label>
+            <button id="f-savetoken" type="button" class="btn-sub">トークンを保存</button>
+            <button id="f-cleartoken" type="button" class="btn-sub">削除</button>
+            <div id="token-state" class="settings-note"></div>
+          </details>
+
+          <div id="form-msg" class="form-msg"></div>
+          <button id="f-submit" class="btn-primary" type="button">追加して保存</button>
+        </div>
+      </div>
+    </div>
+
     <footer class="foot">
       <div>データ: 経営事項審査(CIIC) / 建設業許可(国交省) / 適用事業所(年金機構) / Google News</div>
       <div class="foot-note">※非公開ページ（noindex）。財務・雇用は公開情報を基に自動集計。数値は参考値です。</div>

@@ -1,5 +1,5 @@
 {
- "updated": "2026-06-02T01:08:37.197Z",
+ "updated": "2026-06-02T02:18:34.432Z",
  "companies": [
   {
    "id": "26-005677",
@@ -18,7 +18,8 @@
    "instagram": "",
    "keishin_status": "倒産",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "8130001011117",
@@ -37,7 +38,8 @@
    "instagram": "",
    "keishin_status": "無",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "23-028070",
@@ -56,7 +58,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "16-011567",
@@ -75,7 +78,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-002465",
@@ -94,7 +98,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": true
+   "is_self": true,
+   "exclude_compare": false
   },
   {
    "id": "26-003068",
@@ -113,7 +118,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-005355",
@@ -132,7 +138,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-007802",
@@ -151,7 +158,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-008451",
@@ -170,7 +178,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-008508",
@@ -189,7 +198,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-012434",
@@ -208,7 +218,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-013103",
@@ -227,7 +238,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-013378",
@@ -246,7 +258,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-015487",
@@ -265,7 +278,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-019518",
@@ -284,7 +298,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-019549",
@@ -303,7 +318,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-022071",
@@ -322,7 +338,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-024846",
@@ -341,7 +358,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-025240",
@@ -360,7 +378,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-025616",
@@ -379,7 +398,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-026672",
@@ -398,7 +418,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-028951",
@@ -417,7 +438,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-029400",
@@ -436,7 +458,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-029415",
@@ -455,7 +478,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-031652",
@@ -474,7 +498,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-033871",
@@ -493,7 +518,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-034820",
@@ -512,7 +538,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-035361",
@@ -531,7 +558,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-035614",
@@ -550,7 +578,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-036029",
@@ -569,7 +598,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-037710",
@@ -588,7 +618,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-038049",
@@ -607,7 +638,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-038261",
@@ -626,7 +658,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-039058",
@@ -645,7 +678,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-039877",
@@ -664,7 +698,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-040630",
@@ -683,7 +718,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-040843",
@@ -702,7 +738,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-015222",
@@ -721,7 +758,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-000347",
@@ -740,7 +778,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-042868",
@@ -759,7 +798,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-037828",
@@ -778,7 +818,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-001739",
@@ -797,7 +838,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-009134",
@@ -816,7 +858,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-015051",
@@ -835,7 +878,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-020464",
@@ -854,7 +898,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-022439",
@@ -873,7 +918,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": true
   },
   {
    "id": "00-025211",
@@ -892,7 +938,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-015734",
@@ -911,7 +958,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "25-010005",
@@ -930,7 +978,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "25-070108",
@@ -949,7 +998,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "22-025589",
@@ -968,7 +1018,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-000270",
@@ -987,7 +1038,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-000552",
@@ -1006,7 +1058,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-005675",
@@ -1025,7 +1078,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-007527",
@@ -1044,7 +1098,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-009074",
@@ -1063,7 +1118,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-011934",
@@ -1082,7 +1138,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "28-752052",
@@ -1101,7 +1158,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "有",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-001278",
@@ -1120,7 +1178,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-003409",
@@ -1139,7 +1198,8 @@
    "instagram": "",
    "keishin_status": "有",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "23-037053",
@@ -1158,7 +1218,8 @@
    "instagram": "https://www.risaburo.com",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "23-053760",
@@ -1177,7 +1238,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "23-043070",
@@ -1196,7 +1258,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-001537",
@@ -1215,7 +1278,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-014747",
@@ -1234,7 +1298,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-027454",
@@ -1253,7 +1318,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-033414",
@@ -1272,7 +1338,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-038687",
@@ -1291,7 +1358,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "26-039122",
@@ -1310,7 +1378,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-023364",
@@ -1329,7 +1398,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-022877",
@@ -1348,7 +1418,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "00-022938",
@@ -1367,7 +1438,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "22-034709",
@@ -1386,7 +1458,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "17-012537",
@@ -1405,7 +1478,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "13-046577",
@@ -1424,7 +1498,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "13-085604",
@@ -1443,7 +1518,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   },
   {
    "id": "29-016143",
@@ -1462,7 +1538,8 @@
    "instagram": "",
    "keishin_status": "",
    "bunkazai": "",
-   "is_self": false
+   "is_self": false,
+   "exclude_compare": false
   }
  ]
 }
