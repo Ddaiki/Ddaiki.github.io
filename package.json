@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Data pipeline scripts for the industry-analysis cockpit",
   "scripts": {
-    "build": "node scripts/xlsx_to_json.mjs",
+    "build": "node scripts/build_companies.mjs",
     "news": "node scripts/fetch_news.mjs",
     "insured": "node scripts/fetch_insured.mjs",
     "permits": "node scripts/fetch_permits.mjs",

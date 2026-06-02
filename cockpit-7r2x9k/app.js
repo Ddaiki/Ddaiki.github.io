@@ -372,5 +372,122 @@ async function main() {
     }));
   $('#search').addEventListener('input', renderList);
   $('#sortkey').addEventListener('change', renderList);
+
+  setupAddForm();
 }
 main();
+
+/* ---------- 企業追加フォーム（GitHubに自動保存） ---------- */
+const GH_OWNER = 'Ddaiki';
+const GH_REPO = 'Ddaiki.github.io';
+const CSV_PATH = 'cockpit-7r2x9k/data/companies.csv';
+const TOKEN_KEY = 'cockpit_gh_pat';
+
+const b64encodeUtf8 = (str) => btoa(String.fromCharCode(...new TextEncoder().encode(str)));
+const b64decodeUtf8 = (b64) => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g, '')), (c) => c.charCodeAt(0)));
+const csvCell = (v) => {
+  const s = String(v ?? '');
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+};
+// CSVの1行をフィールド配列に（ヘッダ解析用・簡易RFC4180）
+function parseCsvLine(line) {
+  const out = []; let cur = ''; let q = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (q) { if (c === '"') { if (line[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else { if (c === '"') q = true; else if (c === ',') { out.push(cur); cur = ''; } else cur += c; }
+  }
+  out.push(cur);
+  return out;
+}
+
+function setupAddForm() {
+  const modal = $('#modal');
+  const open = () => { modal.hidden = false; refreshTokenState(); };
+  const close = () => { modal.hidden = true; };
+  $('#fab').addEventListener('click', open);
+  $('#modal-close').addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+
+  const refreshTokenState = () => {
+    const t = localStorage.getItem(TOKEN_KEY);
+    $('#token-state').textContent = t ? 'トークン保存済み（この端末）' : 'トークン未設定';
+    if (!t) $('#settings').open = true;
+  };
+  $('#f-savetoken').addEventListener('click', () => {
+    const t = $('#f-token').value.trim();
+    if (t) { localStorage.setItem(TOKEN_KEY, t); $('#f-token').value = ''; }
+    refreshTokenState();
+  });
+  $('#f-cleartoken').addEventListener('click', () => { localStorage.removeItem(TOKEN_KEY); refreshTokenState(); });
+
+  $('#f-submit').addEventListener('click', submitAdd);
+}
+
+async function submitAdd() {
+  const msg = $('#form-msg');
+  const setMsg = (t, cls) => { msg.textContent = t; msg.className = 'form-msg ' + (cls || ''); };
+  const name = $('#f-name').value.trim();
+  if (!name) { setMsg('会社名は必須です', 'err'); return; }
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) { setMsg('先に「保存先の設定」でトークンを保存してください', 'err'); $('#settings').open = true; return; }
+  const branch = ($('#f-branch').value.trim() || 'main');
+
+  // ヘッダ列名 -> 入力値
+  const values = {
+    '会社名': name,
+    'フリガナ': '',
+    '法人番号': $('#f-houjin').value.trim(),
+    '許可番号': $('#f-license').value.trim(),
+    '大臣知事区分': $('#f-class').value.trim(),
+    '法人個人': $('#f-type').value,
+    '郵便番号': '',
+    '所在地': $('#f-address').value.trim(),
+    '代表者名': $('#f-rep').value.trim(),
+    '代表者フリガナ': '',
+    '資本金千円': $('#f-capital').value.trim(),
+    'Web': $('#f-web').value.trim(),
+    'Instagram': $('#f-ig').value.trim(),
+    '経審ステータス': '',
+    '文化財入札': '',
+    '自社': $('#f-self').checked ? '○' : '',
+    '比較対象外': $('#f-exclude').checked ? '○' : '',
+  };
+
+  const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${CSV_PATH}`;
+  const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+  setMsg('保存中…');
+  try {
+    const getRes = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers });
+    if (!getRes.ok) throw new Error(`CSV取得失敗 (${getRes.status})。トークン権限/ブランチを確認してください`);
+    const file = await getRes.json();
+    const content = b64decodeUtf8(file.content);
+    const lines = content.replace(/\n+$/,'').split('\n');
+    const header = parseCsvLine(lines[0]);
+    const row = header.map((h) => csvCell(values[h] ?? '')).join(',');
+    const newContent = content.replace(/\n*$/, '\n') + row + '\n';
+
+    const putRes = await fetch(api, {
+      method: 'PUT', headers,
+      body: JSON.stringify({ message: `data: add ${name}`, content: b64encodeUtf8(newContent), sha: file.sha, branch }),
+    });
+    if (!putRes.ok) { const e = await putRes.json().catch(() => ({})); throw new Error(`保存失敗 (${putRes.status}) ${e.message || ''}`); }
+
+    setMsg('✓ 保存しました。1〜2分後に自動反映されます（被保険者数等は次回の自動取得で付与）。', 'ok');
+    // 即時フィードバック: 一覧に仮表示
+    const provisional = buildModel({ companies: { companies: [{
+      id: values['許可番号'] || values['法人番号'] || `new-${Date.now()}`,
+      name, furigana: '', houjin_bangou: values['法人番号'], license_no: values['許可番号'],
+      license_class: values['大臣知事区分'], type: values['法人個人'], postal: '', address: values['所在地'],
+      representative: values['代表者名'], rep_furigana: '', capital_k: Number(values['資本金千円'].replace(/[,\s]/g,''))||null,
+      website: values['Web'], instagram: values['Instagram'], keishin_status: '', bunkazai: '',
+      is_self: !!values['自社'], exclude_compare: !!values['比較対象外'],
+    }] }, insured: {}, keishin: {}, permits: {} })[0];
+    LIST_MODEL = [provisional, ...LIST_MODEL];
+    renderList();
+    ['#f-name','#f-houjin','#f-license','#f-class','#f-address','#f-rep','#f-capital','#f-web','#f-ig'].forEach((s)=>{$(s).value='';});
+    $('#f-self').checked = false; $('#f-exclude').checked = false;
+  } catch (e) {
+    setMsg('⚠ ' + e.message, 'err');
+  }
+}

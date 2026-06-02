@@ -1,9 +1,17 @@
 # データ仕様（コクピット）
 
-`companies.xlsx` が**マスター**です。会社を追加・編集したら、このファイルを差し替えて push してください。
-push されると GitHub Actions（`data` ワークフロー）が自動で `companies.json` に変換します。
+`companies.csv` が**マスター**です（CSVなので Excel でもそのまま開けます）。会社を追加・編集する方法は2つ：
 
-## companies.xlsx の列（順不同・列名で対応）
+1. **アプリの「＋」ボタン（推奨・スマホ向け）**: ダッシュボード右下の「＋」から会社を入力して「追加して保存」。
+   GitHub に自動で1行追記され、`data` ワークフローが `companies.json` を再生成します（1〜2分で反映）。
+   - 初回のみ「保存先の設定」で **GitHub Personal Access Token** を端末に保存してください。
+   - 推奨トークン: fine-grained PAT・対象リポジトリ `Ddaiki/Ddaiki.github.io`・権限 **Contents: Read and write**。
+   - トークンはこの端末の localStorage にのみ保存されます（サーバーには送りません）。
+2. **GitHub で直接編集**: `companies.csv` を GitHub アプリ/ブラウザで開いて行を追加し commit。
+
+どちらでも push されると GitHub Actions（`data` ワークフロー）が自動で `companies.json` に変換します。
+
+## companies.csv の列（順不同・列名で対応）
 
 | 列名 | 内容 | 必須 | 用途 |
 |------|------|:----:|------|
