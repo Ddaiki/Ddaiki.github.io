@@ -14,7 +14,8 @@ import { fetchText, stripTags, toInt, sleep, readJSON, writeJSON, loadCompanies,
 const DATA_DIR = path.resolve(import.meta.dirname, '..', 'cockpit-7r2x9k', 'data');
 const SEARCH_URL = process.env.NENKIN_SEARCH_URL || 'https://www.nenkin.go.jp/do/search_section/';
 const LIMIT = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : Infinity;
-const WAIT_MS = 4000; // 礼儀正しく待機
+const WAIT_MS = Number(process.env.WAIT_MS || 1500); // 礼儀正しく待機（控えめ）
+const PROBE = !!process.env.PROBE; // 1社だけ取得し、返ってきたHTML先頭をログ出力（構造解明用）
 
 // 法人番号で照会した結果HTMLから被保険者数を抽出（複数パターンに耐性）。
 function extractInsured(html) {
@@ -37,8 +38,32 @@ async function queryByCorpNumber(houjin) {
   return await fetchText(url, { timeoutMs: 25000 });
 }
 
+async function probe(companies) {
+  const c = companies[0];
+  console.log(`PROBE 年金機構 ${c.name} (法人番号 ${c.houjin_bangou})`);
+  console.log(`SEARCH_URL = ${SEARCH_URL}`);
+  for (const attempt of [
+    { label: 'GET ?houjinBangou', url: `${SEARCH_URL}?houjinBangou=${c.houjin_bangou}`, opts: {} },
+    { label: 'POST houjinBangou', url: SEARCH_URL, opts: { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: `houjinBangou=${c.houjin_bangou}` } },
+  ]) {
+    try {
+      const html = await fetchText(attempt.url, { ...attempt.opts, retries: 0, timeoutMs: 15000 });
+      console.log(`\n===== ${attempt.label} : OK len=${html.length} =====`);
+      console.log('被保険者数 含む?', /被保険者数/.test(html), '| <form 数', (html.match(/<form/gi) || []).length);
+      // formのaction/inputを抽出して実パラメータ名を把握
+      (html.match(/<form[^>]*>/gi) || []).slice(0, 3).forEach((f) => console.log('FORM:', f));
+      (html.match(/<input[^>]*>/gi) || []).slice(0, 25).forEach((i) => console.log('INPUT:', i.replace(/\s+/g, ' ')));
+      console.log('--- HTML head 1500 ---\n', html.slice(0, 1500));
+    } catch (e) {
+      console.log(`\n===== ${attempt.label} : FAIL ${e.message} =====`);
+    }
+    await sleep(1500);
+  }
+}
+
 async function main() {
   const companies = loadCompanies(DATA_DIR).filter((c) => c.houjin_bangou && /^\d{13}$/.test(c.houjin_bangou));
+  if (PROBE) { await probe(companies); return; }
   const insured = readJSON(`${DATA_DIR}/insured.json`, {});
   const date = today();
   let updated = 0, unchanged = 0, failed = 0, n = 0;

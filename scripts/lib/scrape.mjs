@@ -10,8 +10,9 @@ export const UA =
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // レート制限つき fetch（テキスト取得）。リトライ＋指数バックオフ。
+// 既定は「速く失敗」寄り（到達不可サイトで長時間ハングしないため）。
 export async function fetchText(url, opts = {}) {
-  const { method = 'GET', body = null, headers = {}, retries = 3, timeoutMs = 25000 } = opts;
+  const { method = 'GET', body = null, headers = {}, retries = 1, timeoutMs = 12000 } = opts;
   let lastErr;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
