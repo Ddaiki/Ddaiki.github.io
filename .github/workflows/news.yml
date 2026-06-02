@@ -34,5 +34,11 @@ jobs:
             echo "no news changes"
           else
             git commit -m "chore(news): auto-update [skip ci]"
-            git push
+            # 並行ジョブ(data等)がmainを進めていると push が弾かれるため rebase してリトライ
+            for i in 1 2 3 4 5; do
+              if git push; then echo "pushed"; break; fi
+              echo "push rejected (try $i) -> pull --rebase"
+              git pull --rebase --autostash origin main || true
+              [ "$i" = 5 ] && { echo "push failed after retries"; exit 1; }
+            done
           fi
