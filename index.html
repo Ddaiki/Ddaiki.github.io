@@ -12,6 +12,11 @@
 <meta property="og:url" content="https://ddaiki.github.io">
 <meta name="twitter:card" content="summary_large_image">
 
+<link rel="canonical" href="https://ddaiki.github.io/">
+<meta name="author" content="Daiki Hasegawa">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='88'%3E%F0%9F%A7%B1%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -32,7 +37,8 @@
   "jobTitle": "瓦屋",
   "url": "https://ddaiki.github.io",
   "sameAs": [
-    "https://www.instagram.com/ddaiki1006"
+    "https://www.instagram.com/ddaiki1006",
+    "https://x.com/Ddaiki"
   ]
 }
 </script>
@@ -51,6 +57,7 @@
     --warn: #9a6700;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   html, body { margin: 0; padding: 0; }
   body {
     background: var(--bg);
@@ -297,6 +304,11 @@
     color: var(--fg);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
   @media (max-width: 560px) {
     dl.kv { grid-template-columns: 1fr; gap: 0; }
     dl.kv dt { margin-top: 8px; }
@@ -342,7 +354,7 @@
       京都市を拠点に活動する瓦屋。屋根の葺き替えなどの施工実務と並行して、文化財に残された瓦の刻印を記録するデータベース構築と、伝統素材を活かしたプロダクトのデザインに取り組んでいます。
     </blockquote>
 
-    <h2 class="h2" id="projects"><span class="hash">##</span> Projects <span class="sub">— 7 件</span></h2>
+    <h2 class="h2" id="projects"><span class="hash">##</span> Projects <span class="sub">— 8 件</span></h2>
 
     <ul class="tasks">
 
@@ -481,7 +493,7 @@
     <div class="about">
       <div class="about-head">
         <span>profile.yml</span>
-        <span>2 contacts</span>
+        <span>3 contacts</span>
       </div>
       <div class="about-body">
         <dl class="kv">
