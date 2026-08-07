@@ -22,6 +22,26 @@ sat-zuzo-browser/
     └── app.js           バニラ JS、OpenSeadragon でビューワ
 ```
 
+## フェーズ A: 本家データ構造の偵察
+
+実データを取り込む前段として、SAT本家のHTML/IIIF構造を調査するスクリプトを用意。
+Node.js 18+ 環境（PC推奨。本家アクセス可能なネットワーク必須）で実行:
+
+```bash
+# sat-zuzo-browser/ 直下で
+node scripts/recon/sat-recon.mjs
+```
+
+出力は `sat-zuzo-browser/recon/` 配下:
+- `report.md` — 抽出URL一覧 / manifest要約 / IIIF Collection推定試行結果
+- `index.html` — 取得したSATトップHTML（grep用）
+- `manifest-sample.json` — manifest 1件分（取得できた場合）
+- `headers-*.txt` — レスポンスヘッダ（CORS確認用）
+
+実行前に `scripts/recon/sat-recon.mjs` 冒頭の `USER_AGENT` を実連絡先メールに書き換えること（本家への配慮）。
+
+実行後は `recon/` 一式をコミット → PR で共有 → そのデータ構造に基づき本実装（Next.js + Tailwind 予定）へ。
+
 ## 公開デモ（静的版）
 
 GitHub Pages で動く静的版を `web/` に同梱しています。`main` にマージされていれば下記 URL で閲覧可能:
