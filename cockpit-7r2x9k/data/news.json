@@ -1,6 +1,6 @@
 {
- "updated": "2026-09-26T20:13:52.927Z",
- "date": "2026-09-26",
+ "updated": "2026-09-27T20:14:29.385Z",
+ "date": "2026-09-27",
  "items": [
   {
    "title": "＜画像6 / 12＞いま外国人から注目されている日本の伝統技術！「宮大工」の魅力に迫る！ - ウォーカープラス",
@@ -32,8 +32,8 @@
   },
   {
    "title": "技能マイスターが宮大工の魅力語る 南小で出前講座―伊東 - 伊豆新聞デジタル",
-   "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE82cDQwVFBXNFltVmp2WExSNU9LZklMUWkyTjd3LUV4NWthMEdkZFk3dnhicDdNaUVFbkJ1cGh3R0J4cXlRa3VGVi1LSUpiUlloNktWZDZESWVZUQ?oc=5",
-   "pubDate": "Thu, 24 Sep 2026 20:01:52 GMT",
+   "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1aYVZiOEItZ3lLQ1ZZZzhKM1dpb2s3dVEzelo4OWNJVkxULUNRVUFFNEpmdTJLUDBKTndVcFI1U21iZC1VdXVUUXhKNFFfZDJVQzN4Q2d3?oc=5",
+   "pubDate": "Thu, 24 Sep 2026 20:34:12 GMT",
    "source": "伊豆新聞デジタル",
    "query": "宮大工"
   },
@@ -87,25 +87,11 @@
    "query": "重要文化財 保存修理"
   },
   {
-   "title": "諏訪大社上社本宮で進む重要文化財の保存修理 神楽殿は建立以来初の大がかりな工事 - 信濃毎日新聞デジタル",
-   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9aNWFrY3dhcWlDeGEwU3RyWnNzRWNWMGtyUzV0ZUFnU2JUWlYwMUJPc1JIdVVjYlNxLWVJMlVWbmc1UW0xQVhlLWxDNWZKcXhUbV92b1h5LUlUMXNOM2NUWVJ6c0JzaEl3S2l4Nl82OW0?oc=5",
-   "pubDate": "Mon, 14 Sep 2026 07:00:00 GMT",
-   "source": "信濃毎日新聞デジタル",
-   "query": "重要文化財 保存修理"
-  },
-  {
    "title": "古い本瓦提供呼びかけ 浅口市教委、文化財修復で使用 現在は入手困難な４種 - 山陽新聞",
    "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBBQld3b2pnVElZRTBUX1E4eUpYRkNBem41bEJKdFpSU0FJdHlUYXNqeDZVZ1hZb2pyYXZIakR1dmgwMGNvekJfOFVva2dkU1JUREE?oc=5",
    "pubDate": "Thu, 10 Sep 2026 07:00:00 GMT",
    "source": "山陽新聞",
    "query": "文化財 修復 建築"
-  },
-  {
-   "title": "建設業倒産18％増、8月は182件 人手不足倒産が最多 - s-housing.jp",
-   "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE0xNkszZ29iQl9qM3BxbWM4NlZxWmQ3SVpORnBtQzUwNml5WXFSeWZxVkZEXzlTTzAzendxSFRwN2kyNzU1LW1MMWl4SXBwSy1QVkE?oc=5",
-   "pubDate": "Wed, 09 Sep 2026 07:00:00 GMT",
-   "source": "s-housing.jp",
-   "query": "建設業 後継者"
   },
   {
    "title": "住宅リフォーム助成事業 - city.ota.tokyo.jp",
@@ -136,10 +122,17 @@
    "query": "山本興業株式会社"
   },
   {
-   "title": "重要文化財の阿弥陀如来坐像、修理中に腕部分が割れる 文化庁が発表 - 朝日新聞",
+   "title": "マッキンゼー出身社長、6年で17件買収 建設業に「技術サービス連邦」構想 - 日経ビジネス電子版",
+   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFB0OFNmS1ZkbWFjWU5xdzFyZmlZSXFVOXRncUdOdDZkaXVvSmpVYTRVODBuTWsyUHBCcUJHZjRLS3pEZFFWUF9LM1pBWGtMY3RDdERaemRCa2R4WWhSVFBTSXNzVkVSalE?oc=5",
+   "pubDate": "Wed, 02 Sep 2026 07:00:00 GMT",
+   "source": "日経ビジネス電子版",
+   "query": "建設業 後継者"
+  },
+  {
+   "title": "重要文化財の阿弥陀如来坐像、修理中に腕部分が割れる 文化庁が発表 - asahi.com",
    "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5vcEJQb09IZ3F2Z0RsUXJESTB2NVNzOWEtRWpMRm9ad3hUamVTUUdIRElYa1RRX3ExQ1FyTHphN1hOZ2NkVjVVZ01rNUlNblA1SXdjMWhwdElKNU0xaGVHd2otaDRhd2s?oc=5",
    "pubDate": "Mon, 31 Aug 2026 07:00:00 GMT",
-   "source": "朝日新聞",
+   "source": "asahi.com",
    "query": "重要文化財 保存修理"
   },
   {
@@ -213,10 +206,10 @@
    "query": "建設業 後継者"
   },
   {
-   "title": "≪新潟・阿賀野市≫屋根の上から地域見守る 瓦ぶき職人の救命講習（2026年7月4日掲載）｜TeNY NEWS NNN - 日テレNEWS NNN",
+   "title": "≪新潟・阿賀野市≫屋根の上から地域見守る 瓦ぶき職人の救命講習（2026年7月4日掲載）｜TeNY NEWS NNN - news.ntv.co.jp",
    "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxORUp2MWtnZVJJSE5uZFhVUERPaXhQUmREdUpZVVZmQS0xOW1PcTBSei1wSVNMVElFRzJEUTJUN2lGVUNYbU9TUWlYWk5GVW9mTXVmQTBSQnZJMmtEVURHUXBkNm5EVFR1cUg5UHlKbG9ncFpKT1otRGtCTEFIQU04N1ZENE9QM2pD?oc=5",
    "pubDate": "Sat, 04 Jul 2026 07:00:00 GMT",
-   "source": "日テレNEWS NNN",
+   "source": "news.ntv.co.jp",
    "query": "瓦 職人"
   },
   {
@@ -255,11 +248,18 @@
    "query": "屋根 葺き替え"
   },
   {
-   "title": "【技を継ぐ あをによし賞20年】（3）瓦葺きと製造 － 一手に担う 職人養成へ有志で保存会 | 紡ぐプロジェクト - 紡ぐプロジェクト",
+   "title": "【技を継ぐ あをによし賞20年】（3）瓦葺きと製造 － 一手に担う 職人養成へ有志で保存会 - 紡ぐプロジェクト",
    "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBuYjRDeGI0YVRrUVgyUlFvdHM1Q1pTbXdMY0dUVkNTZnlWUmFDZkhWemxhczBuOHFjSGxya3pESGlaMU5Ga3JYbTNLVzZqdkxGa3RFb2JSbTVINWYwNW5WYWhXbjRYQ1JHQ19VT3FiQWlfT1Ywa1E?oc=5",
    "pubDate": "Wed, 10 Jun 2026 07:00:00 GMT",
    "source": "紡ぐプロジェクト",
    "query": "瓦 職人"
+  },
+  {
+   "title": "屏東県瑪家の伝統スレート家屋 李文化部長、建築技術の継承支援に前向き／台湾 - フォーカス台湾",
+   "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5HMDRISU10eGVGOGN3eWtMM2V2QVBaQk9DZWUyTXVnZm1NSXlUUTR0ZGpTbWkxUjUyNV92TFlNcTNadUdOeERNYUNZU1VCVFFnWENGVkx2eDJLS2gzZGc?oc=5",
+   "pubDate": "Wed, 10 Jun 2026 07:00:00 GMT",
+   "source": "フォーカス台湾",
+   "query": "伝統建築 技術"
   },
   {
    "title": "重要文化財「旧瓜生家住宅」の保存修理工事について - city.sabae.fukui.jp",
@@ -274,6 +274,13 @@
    "pubDate": "Mon, 18 May 2026 07:00:00 GMT",
    "source": "PR TIMES",
    "query": "山本興業株式会社"
+  },
+  {
+   "title": "令和8年度 弘前城重要文化財保存修理事業 修理状況・内容 - city.hirosaki.aomori.jp",
+   "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPNmZqdXZPb3R0Q3NaOEJHYkRlSGJzbjYyZDFKTVg4djVGaWhPNGhycTdCXzd0NTZxbmU0RjRHR2tvMUt0MVNkYmhIbnhpOXNod2VINUozc1pxa0t0ZXJyb3Y3enhJQ1JlcHh0Z2tEWU1BY1N1Rk1JQTBzVjZqQUpvcEV2anRmZw?oc=5",
+   "pubDate": "Fri, 15 May 2026 03:04:20 GMT",
+   "source": "city.hirosaki.aomori.jp",
+   "query": "重要文化財 保存修理"
   },
   {
    "title": "屋根瓦耐風改修を支援します - city.kurayoshi.lg.jp",
@@ -325,10 +332,10 @@
    "query": "社寺建築"
   },
   {
-   "title": "関西パビリオン・京都ゾーン 内観イメージを公開しました。 | 新着情報 | EXPO KYOTO Official site - pref.kyoto.jp",
-   "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9GQVNnazBTTGdWSzFrYzY0Qm9EekVmcDAxTTVnUjZFT19qLUxfcWFTdEJyQjZlelJXLW9UWDVPR3hPYzdCcFZJQ04zRHdvS19EQzA3MXZjWkxIM2FYbkE?oc=5",
-   "pubDate": "Tue, 10 Feb 2026 08:40:18 GMT",
-   "source": "pref.kyoto.jp",
+   "title": "京瓦の老舗が四条通に初のアンテナショップ 鍾馗像や鬼面などに加え、“暮らしの中の京瓦”も提案 - 株式会社共同通信社",
+   "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBicmNpOXhHRWhVc013UWFHMjFRamNWRjRTSkstLTdwWU4yTVZVbFR2UnkxdFhWWm15Qk9Tb1pKZUZGTG0yNUxnYUJnOV8zRXN0SGtDakQyTkNDaDdXQ18wYg?oc=5",
+   "pubDate": "Mon, 09 Feb 2026 08:00:00 GMT",
+   "source": "株式会社共同通信社",
    "query": "京都 瓦"
   },
   {
@@ -339,18 +346,11 @@
    "query": "京都 瓦"
   },
   {
-   "title": "後継者不在率59.1％で富山県はワースト10位 建設業は65.7％と深刻 全国の改善傾向に逆行する富山、石川、福井の北陸3県では事業承継が喫緊の課題 帝国データバンク調べ | 富山のニュース｜天気・防災｜チューリップテレビ (2ページ) - TBS NEWS DIG",
+   "title": "後継者不在率59.1％で富山県はワースト10位 建設業は65.7％と深刻 全国の改善傾向に逆行する富山、石川、福井の北陸3県では事業承継が喫緊の課題 帝国データバンク調べ | 富山のニュース｜天気・防災｜チューリップテレビ (2ページ) - newsdig.tbs.co.jp",
    "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFAxUWZDWFlHMG4tUEZ5RVFFdWNMUEtKYjl6UGFGbjBmQ200Y3o5azJadFFvcllaTlIzNHNNdmZfaHUtdnpnS2dNM243MVNLbzRieVFSTFVOaHVONmhWTjRHSlVjWQ?oc=5",
    "pubDate": "Sat, 31 Jan 2026 08:00:00 GMT",
-   "source": "TBS NEWS DIG",
+   "source": "newsdig.tbs.co.jp",
    "query": "建設業 後継者"
-  },
-  {
-   "title": "社寺建築一筋に百有余年「未来の国宝を造る」匠たち - wedge.ismedia.jp",
-   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1hTHFCNjZ3WEc2NHduZUxOYnpuekQyaUswZXlma2piemM0QnBWZ09fRDZOelJXRU54Q1pNQkhhSG9LUUVkLTQ5SVRjWFdxcnFidWstWjR6OE1xblhTX0s4?oc=5",
-   "pubDate": "Sat, 17 Jan 2026 08:00:00 GMT",
-   "source": "wedge.ismedia.jp",
-   "query": "社寺建築"
   }
  ]
 }
